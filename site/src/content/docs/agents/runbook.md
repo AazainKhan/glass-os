@@ -11,7 +11,7 @@ export GLASS_APK="$HOME/Downloads/glass-tv-launcher.apk"
 
 With more than one device, add `-s SERIAL` to every `adb` command.
 
-## Tier 1: APK + adb
+## Install + one command
 
 ### 1. Reach the stick
 
@@ -35,7 +35,7 @@ adb shell getprop ro.product.device
 karat
 ```
 
-If it fails: another value is an untested device. **Ask user** before continuing. Never run Tier 2 or 3 on it.
+If it fails: another value is an untested device. **Ask user** before continuing. Never run the rooted or full system install on it.
 
 ### 3. Install the APK
 
@@ -134,10 +134,10 @@ GET_USAGE_STATS: allow
 
 If it fails: `adb shell pm revoke dev.glasslauncher android.permission.WRITE_SECURE_SETTINGS` (same for the others), then stop.
 
-## Tier 2: Glass Pro (root only)
+## Rooted install (root only)
 
 :::note[Coming soon]
-The Glass Pro zip does not exist yet. R1 and R2 check readiness and can run today. Do not run R3 until a release is announced.
+The Magisk module does not exist yet. R1 and R2 check readiness and can run today. Do not run R3 until a release is announced.
 :::
 
 ### R1. Root works (Root only)
@@ -171,15 +171,15 @@ If it fails: stop.
 **Ask user** to approve the install and a reboot. Command: coming soon.
 
 ```bash
-adb shell su -c "ls /data/adb/modules/glass-pro"
+adb shell su -c "ls /data/adb/modules"
 ```
 
 ```text
-contains: module.prop
+contains the Glass module directory
 ```
 
 If it fails: `adb wait-for-device shell su -c "magisk --remove-modules"`, then stop. If adb never returns, **Ask user**: a custom recovery is needed.
 
-## Tier 3: Glass OS
+## Full system install
 
 Coming soon. Do not attempt.

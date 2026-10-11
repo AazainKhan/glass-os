@@ -1,9 +1,9 @@
 ---
-title: "Tier 1: APK + one adb command"
+title: "Install + one command"
 description: Make Glass the real home screen on an unrooted Fire TV, with optional permission grants.
 ---
 
-You need: Tier 0's APK installed, a computer with [`adb`](https://developer.android.com/tools/releases/platform-tools), and the stick on the same network.
+You need: the app installed as in [Install the app](/glass-os/install/app/), a computer with [`adb`](https://developer.android.com/tools/releases/platform-tools), and the stick on the same network.
 
 :::caution
 Keep the undo command to hand. If Amazon's launcher is disabled and Glass is later removed, the stick has no home screen until you re-enable it over adb.

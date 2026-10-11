@@ -8,7 +8,7 @@ Fixes marked **Root** need a rooted stick.
 ## Home goes to Amazon's launcher, or Glass flashes after it
 
 **Cause.** Unrooted, Glass can only bounce Amazon's launcher out of the way; Fire OS keeps the Home key for itself.
-**Fix.** Use [Tier 1](/glass-os/install/tier-1-adb/): `adb shell pm disable-user --user 0 com.amazon.tv.launcher`. If it was working and stopped, an update or reset probably re-enabled Amazon's launcher: run the command again.
+**Fix.** Use [Install + one command](/glass-os/install/app-plus-adb/): `adb shell pm disable-user --user 0 com.amazon.tv.launcher`. If it was working and stopped, an update or reset probably re-enabled Amazon's launcher: run the command again.
 
 ## The stick has no home screen
 
@@ -18,7 +18,7 @@ Fixes marked **Root** need a rooted stick.
 ## The remote will not pair, or unpairs after a reboot
 
 **Pairing from scratch.** Reboot the stick and wait about 60 seconds for Fire's auto-pair dialog, then **hold the Home button for 10 seconds** on the remote.
-**Cause of unpairing (Root).** Fire's auto-pair service re-pairs about 60 seconds after boot, which can drop a sleeping remote's bond. Glass Pro will include a small keepalive that cancels this; until then, a boot script that sends one key event 15 seconds after boot does the same.
+**Cause of unpairing (Root).** Fire's auto-pair service re-pairs about 60 seconds after boot, which can drop a sleeping remote's bond. The rooted install will include a small keepalive that cancels this; until then, a boot script that sends one key event 15 seconds after boot does the same.
 
 ## Alexa crashes whenever you hold the mic button
 
@@ -27,7 +27,7 @@ Fixes marked **Root** need a rooted stick.
 
 ## Two copies of Glass start
 
-**Cause.** The launcher was started with `am start -n`. Start it through the Home intent instead (Glass Pro will do this).
+**Cause.** The launcher was started with `am start -n`. Start it through the Home intent instead (the rooted install will do this).
 
 ## The stick bootloops after installing a Magisk module (Root)
 
@@ -36,9 +36,9 @@ Fixes marked **Root** need a rooted stick.
 ## Control Center does not open over apps, or the app buttons do nothing
 
 **Cause.** The remote's Settings, Recents and app buttons never reach third-party apps on stock Fire OS.
-**Fix (Root).** The key remap in Glass Pro, coming soon. See [What works without root](/glass-os/no-root/).
+**Fix (Root).** The key remap in the rooted install, coming soon. See [What works without root](/glass-os/no-root/).
 
-## A privileged app stops the stick booting (Tier 2 and 3)
+## A privileged app stops the stick booting (rooted and full system installs)
 
 **Cause.** The system enforces a permission allowlist for privileged apps; one missing entry halts boot.
 **Fix.** Remove the module from recovery or with `magisk --remove-modules`, then report it.

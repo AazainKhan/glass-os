@@ -8,11 +8,11 @@ Glass is open source (Apache-2.0) and contributions are welcome. You do not need
 ## Repositories
 
 - **Glass launcher:** [glass-tv-launcher](https://github.com/AazainKhan/glass-tv-launcher). Kotlin and Jetpack Compose for TV, one `app` module. Read its `CONTRIBUTING.md` for the build setup (JDK 17 or 21), UI testing and the GPU performance rules.
-- **Glass Pro / Glass OS and this site:** coming soon as a separate public repository.
+- **The rooted and full system installs, and this site:** coming soon as a separate public repository.
 
 ## Good first contributions
 
-- A **device report**: what you installed it on, which tier, what worked.
+- A **device report**: what you installed it on, which way you installed it, what worked.
 - Confirming a claim on the [no-root page](/glass-os/no-root/) on an unrooted stick.
 - Fixing a doc or runbook step that did not match what you saw.
 
@@ -36,9 +36,9 @@ npm run check:runbooks
 npm run check:leaks
 ```
 
-## Proposing a package removal (Glass Pro and Glass OS)
+## Proposing a package removal (rooted and full system installs)
 
-Removals are evidence-based: say what the package does, show that nothing kept depends on it, and run a 24-hour disable test on a real stick. Removal lists, the lint and the process arrive with the Glass Pro repository.
+Removals are evidence-based: say what the package does, show that nothing kept depends on it, and run a 24-hour disable test on a real stick. Removal lists, the lint and the process arrive with that repository.
 
 ## Adding another device or Fire OS build
 

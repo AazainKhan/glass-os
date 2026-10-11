@@ -1,10 +1,10 @@
 ---
 title: Replacement apps
-description: The open-source apps planned for Glass Pro and Glass OS, and why.
+description: The open-source apps planned for the rooted and full system installs, and why.
 ---
 
 :::note[Coming soon]
-These apps are planned for the Tier 2 and Tier 3 bundles. Nothing here ships yet.
+These apps are planned for the rooted and full system installs. Nothing here ships yet.
 :::
 
 Goal: wherever an Amazon app can be swapped for a faster open-source one, offer the swap. Prime Video, Alexa and the pieces they need for sign-in and DRM stay.

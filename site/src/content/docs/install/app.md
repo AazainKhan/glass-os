@@ -1,5 +1,5 @@
 ---
-title: "Tier 0: APK only"
+title: "Install the app"
 description: Sideload Glass and switch on Home Button Takeover. No computer needed.
 ---
 
@@ -15,7 +15,7 @@ You need: a Fire TV (or Android TV / Google TV) on Android 9 or newer, and a way
 
 ## What to expect on Fire TV
 
-Pressing Home still goes to Amazon's launcher first, then Glass opens over it about a moment later. That is a limit of Fire OS, not a bug. If the flash bothers you, use [Tier 1](/glass-os/install/tier-1-adb/), which removes the flash.
+Pressing Home still goes to Amazon's launcher first, then Glass opens over it about a moment later. That is a limit of Fire OS, not a bug. If the flash bothers you, use [Install + one command](/glass-os/install/app-plus-adb/), which removes the flash.
 
 The service only watches for Amazon's launcher windows. It does not read your screen or filter keys.
 

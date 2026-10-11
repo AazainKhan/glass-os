@@ -1,10 +1,10 @@
 ---
-title: "Tier 3: Glass OS"
+title: "Full system install"
 description: A rebuilt Fire OS image with Amazon's launcher and bloat removed. In development.
 ---
 
 :::caution[In development]
-Glass OS is a design, not a release. There is nothing to download or flash yet. Flashing partitions can brick a stick.
+The full system install is a design, not a release. There is nothing to download or flash yet. Flashing partitions can brick a stick.
 :::
 
 ## The idea
@@ -25,4 +25,4 @@ It stays Android on Fire OS underneath, so Prime Video, Alexa and DRM keep worki
 - Back up before writing, and rehearse the restore first.
 - Three independent ways back: from Android with root, from recovery, and from the bootloader's serial handshake.
 
-Glass Pro (Tier 2) ships first and is the tested spec for this tier.
+The rooted install ships first and is the tested spec for this one.

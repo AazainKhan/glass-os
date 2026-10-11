@@ -13,7 +13,7 @@ No. It is Apple TV-style: similar glass surfaces, focus motion and layout, built
 
 ## Will Netflix, Prime Video and the like still play?
 
-Yes on Tiers 0 and 1: Glass is only a launcher and changes nothing about DRM. Keeping DRM and sign-in intact is an explicit requirement for Tiers 2 and 3.
+Yes for the app and the app plus one command: Glass is only a launcher and changes nothing about DRM. Keeping DRM and sign-in intact is an explicit requirement for the rooted and full system installs.
 
 ## Can Alexa and Prime Video use different Amazon accounts?
 
@@ -21,11 +21,11 @@ Not today. The account identity is device-wide on Fire OS. Whether a separate ac
 
 ## Will a Fire OS update undo it?
 
-An update can re-enable Amazon's launcher (Tier 1) and can overwrite parts of the system that Tiers 2 and 3 modify. Updates are best blocked on rooted sticks; an update's bootloader files can also undo an unlocked bootloader.
+An update can re-enable Amazon's launcher (app plus one command) and can overwrite parts of the system that the rooted and full system installs modify. Updates are best blocked on rooted sticks; an update's bootloader files can also undo an unlocked bootloader.
 
 ## Is it safe?
 
-Tiers 0 and 1 change nothing that an uninstall plus one adb command does not undo. Tiers 2 and 3 can, in the worst case, need a recovery or brick the stick. They are for people comfortable with that.
+The first two ways change nothing that an uninstall plus one adb command does not undo. The rooted and full system installs can, in the worst case, need a recovery or brick the stick. They are for people comfortable with that.
 
 ## Who pays for this?
 

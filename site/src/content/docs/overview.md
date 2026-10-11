@@ -11,13 +11,13 @@ It is written for weak hardware first. The reference device is a Fire TV Stick 4
 
 - **Tested on one device.** Other Fire TV, Android TV and Google TV devices should work, but nobody has verified that yet.
 - **A launcher cannot be everything on Fire OS.** Fire's key policy keeps the Home button for itself, so without root Glass takes over by bouncing Amazon's launcher out of the way. The [no-root page](/glass-os/no-root/) says exactly what you get.
-- **The deeper tiers are only for people who want them.** Glass Pro and Glass OS are not built or released yet.
+- **The deeper installs are only for people who want them.** The rooted install and the full system install are not built or released yet.
 
-## Pick your tier
+## Ways to install
 
-- [Tier 0: APK only](/glass-os/install/tier-0-apk/): sideload and switch on one accessibility toggle.
-- [Tier 1: APK + one adb command](/glass-os/install/tier-1-adb/): the reliable no-root setup.
-- [Tier 2: Glass Pro](/glass-os/install/tier-2-glass-pro/): a Magisk module for rooted sticks. Coming soon.
-- [Tier 3: Glass OS](/glass-os/install/tier-3-glass-os/): a rebuilt system image. In development.
+- [Install the app](/glass-os/install/app/): sideload and switch on one accessibility toggle.
+- [Install + one command](/glass-os/install/app-plus-adb/): the reliable no-root setup.
+- [Rooted install](/glass-os/install/rooted/): a Magisk module for rooted sticks. Coming soon.
+- [Full system install](/glass-os/install/full-system/): a rebuilt system image. In development.
 
 Every install guide has a matching, executable [runbook](/glass-os/agents/runbook/) for agents.

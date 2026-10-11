@@ -13,7 +13,7 @@ This site is written to be read by people and followed by agents.
 
 ## Prompt to give your agent
 
-> Read the Glass `llms.txt`, then follow the runbook against my connected Fire TV Stick for Tier 1. Run each precondition and verify command and compare the output with what the runbook expects. Stop and ask me before any step marked "Needs user", and before any write I have not approved.
+> Read the Glass `llms.txt`, then follow the runbook against my connected Fire TV Stick for "Install + one command". Run each precondition and verify command and compare the output with what the runbook expects. Stop and ask me before any step marked "Needs user", and before any write I have not approved.
 
 ## Safety rules (apply to every step)
 

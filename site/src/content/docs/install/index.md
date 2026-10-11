@@ -1,17 +1,17 @@
 ---
-title: Install
-description: Choose how deep to go. Each tier builds on the one before and says how to undo it.
+title: Ways to install
+description: One app, four ways to install it. Start with the first; each later one adds more and says how to undo it.
 ---
 
-Start at Tier 0 or Tier 1. Most people never need more.
+Glass is one app. Pick how much of your Fire TV you want it to take over. Most people should start with the first option.
 
-| Tier | You need | What changes | Undo | Status |
+| Way | You need | What you get | Undo | Status |
 |---|---|---|---|---|
-| [0: APK](/glass-os/install/tier-0-apk/) | The Fire TV remote, a way to sideload (for example Downloader) | Glass is installed; an accessibility service bounces Amazon's home | Turn the toggle off, uninstall | Available |
-| [1: APK + adb](/glass-os/install/tier-1-adb/) | Tier 0, plus a computer with `adb` | Amazon's launcher is disabled for your user, so Home is Glass. Optional permission grants | `adb shell pm enable com.amazon.tv.launcher` | Available |
-| [2: Glass Pro](/glass-os/install/tier-2-glass-pro/) | A rooted stick (Magisk) | Magisk module: remote-button remap, tuning, Glass as a system app, systemless debloat | Uninstall the module | Coming soon |
-| [3: Glass OS](/glass-os/install/tier-3-glass-os/) | An unlocked bootloader, a custom recovery, your own OTA file | A rebuilt system image | Flash your backup | In development |
+| [Install the app](/glass-os/install/app/) | The Fire TV remote and a way to sideload (for example Downloader) | Glass installed, with an accessibility toggle that brings it back over Amazon's home | Turn the toggle off, uninstall | Available |
+| [Install + one command](/glass-os/install/app-plus-adb/) | The above, plus a computer with `adb` | Amazon's launcher is disabled for your user, so Home is Glass with no flash. Optional permission grants | `adb shell pm enable com.amazon.tv.launcher` | Available |
+| [Rooted install](/glass-os/install/rooted/) | A rooted stick (Magisk) | One Magisk module: Glass as a built-in system app, remote buttons, Control Center over apps, memory tuning | Uninstall the module | Coming soon |
+| [Full system install](/glass-os/install/full-system/) | An unlocked bootloader, a custom recovery, your own OTA file | A rebuilt Fire OS image with Glass built in and Amazon's bloat removed | Flash your backup | In development |
 
-Glass is tested on a Fire TV Stick 4K (2nd gen) only. Tiers 2 and 3 are specific to that model today.
+Glass is tested on a Fire TV Stick 4K (2nd gen) only. The rooted and full system installs are specific to that model today.
 
 **Before any adb step, write down the undo command.** With Amazon's launcher disabled and Glass removed, the stick has no home screen until you re-enable it over adb.
