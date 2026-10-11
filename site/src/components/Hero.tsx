@@ -34,7 +34,8 @@ export default function Hero({ hero, install, demo }: { hero: Media; install: st
     };
     // Reduced motion or no video yet: tint once from the poster still.
     if (calm || !v) {
-      const img = g.parentElement?.querySelector<HTMLImageElement>('img.slot-media');
+      let img = g.parentElement?.querySelector<HTMLImageElement>('img.slot-media') ?? null;
+      if (!img && v?.poster) { img = new Image(); img.src = v.poster; }
       if (!img) return;
       const go = () => paint(img);
       if (img.complete) go(); else img.addEventListener('load', go, { once: true });

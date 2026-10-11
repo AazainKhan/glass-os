@@ -5,6 +5,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 RAW=.media-raw
 OUT=src/assets/media
+ONLY=${1:-} # optional: a clip name (for example hero-loop) to rebuild just that clip
 mkdir -p "$OUT"
 
 # still NAME SRC [CROP]: 1920 and 960 wide, WebP and AVIF. CROP is WxH+X+Y on the source.
@@ -32,6 +33,7 @@ clip() {
   magick "$tmp" -resize "1920x>" -quality 82 "$OUT/$name-poster.webp"; rm -f "$tmp"
 }
 
+if [[ -z $ONLY ]]; then
 still dock          still-home-dock.png
 still featured      still-featured.png
 still preview-1     still-control-center.png
@@ -53,6 +55,8 @@ tile shelf-1 still-featured.png 300x170+90+790
 tile shelf-2 still-featured.png 300x170+768+790
 tile shelf-3 still-featured.png 294x170+1116+790
 
-clip clip-featured featured.mp4
-clip clip-remote-focus remote-focus.mp4
+fi
+
+if [[ -z $ONLY || $ONLY == clip-remote-focus ]]; then clip clip-remote-focus remote-focus.mp4; fi
+if [[ -z $ONLY || $ONLY == hero-loop ]]; then clip hero-loop hero-loop.mp4; fi
 ls -la "$OUT"

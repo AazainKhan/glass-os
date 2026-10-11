@@ -47,8 +47,8 @@ const hero = hasVideo(heroLoop) ? { ...heroLoop, poster: heroLoop.poster ?? dock
 const remote = media('clip-remote-focus');
 const demoFull = media('demo-full');
 const m = {
-  hero, dock, scene: media('clip-featured'), featured: media('featured'), remote,
-  fin: remote, demo: hasVideo(demoFull) ? demoFull : remote,
+  hero, dock, scene: hasVideo(heroLoop) ? heroLoop : remote, featured: media('featured'), remote,
+  fin: hasVideo(heroLoop) ? heroLoop : remote, demo: hasVideo(demoFull) ? demoFull : remote,
   dockIcons: [1, 2, 3, 4, 5, 6].map((i) => media(`dock-${i}`)),
   shelf: [1, 2, 3].map((i) => media(`shelf-${i}`)),
   prev: [['Control Center', 1], ['App switcher', 2], ['Cover Flow', 3], ['Settings', 4]].map(([label, i]) => ({ label: label as string, m: media(`preview-${i}`) })),
