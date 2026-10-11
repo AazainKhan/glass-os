@@ -8,10 +8,10 @@ type Item = { id: string; name: string; w: number; h: number; row: 'dock' | 'she
 type Key = 'up' | 'down' | 'left' | 'right' | 'select' | 'back' | 'home';
 const spring = { type: 'spring', stiffness: 100, damping: 20 } as const;
 
-export default function TryIt({ dock, shelf, previews }: { dock: Media[]; shelf: Media[]; previews: Media[] }) {
+export default function TryIt({ dock, shelf, previews }: { dock: Media[]; shelf: Media[]; previews: { m: Media; label: string }[] }) {
   const items: Item[] = [
-    ...dock.map((m, i) => ({ id: `d${i}`, name: `Dock slot ${i + 1}`, w: 512, h: 288, row: 'dock' as const, m })),
-    ...shelf.map((m, i) => ({ id: `s${i}`, name: `Featured slot ${i + 1}`, w: 1280, h: 720, row: 'shelf' as const, m })),
+    ...dock.map((m, i) => ({ id: `d${i}`, name: `Dock app ${i + 1}`, w: 512, h: 288, row: 'dock' as const, m })),
+    ...shelf.map((m, i) => ({ id: `s${i}`, name: `Featured title ${i + 1}`, w: 1280, h: 720, row: 'shelf' as const, m })),
   ];
   const rows = { dock: items.filter((i) => i.row === 'dock'), shelf: items.filter((i) => i.row === 'shelf') };
   const [pos, setPos] = useState({ row: 'dock' as 'dock' | 'shelf', col: 0 });
@@ -48,7 +48,7 @@ export default function TryIt({ dock, shelf, previews }: { dock: Media[]; shelf:
 
   useEffect(() => () => window.clearTimeout(timer.current), []);
   const focused = (it: Item) => touched && rows[pos.row][pos.col]?.id === it.id;
-  const previewFor = open ? previews[items.indexOf(open) % previews.length] : undefined;
+  const preview = open ? previews[items.indexOf(open) % previews.length] : undefined;
 
   const tile = (it: Item) => {
     const on = focused(it);
@@ -80,8 +80,8 @@ export default function TryIt({ dock, shelf, previews }: { dock: Media[]; shelf:
             )}
             {open && (
               <motion.div className="preview" initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }} transition={spring}>
-                <Slot media={previewFor} alt={`Full-screen preview for ${open.name}`} todo="preview art" w={1920} h={1080} />
-                <span className="glass preview-cap">{open.name}</span>
+                <Slot media={preview?.m} alt={`${preview?.label} in Glass`} todo="preview art" w={1920} h={1080} />
+                <span className="glass preview-cap">{preview?.label}</span>
                 <button type="button" className="glass back-pill" onClick={() => act('back')}><Icon name="ArrowUUpLeft" size={16} />Back</button>
               </motion.div>
             )}

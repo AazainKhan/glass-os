@@ -14,11 +14,12 @@ export default function Hero({ hero, install, demo }: { hero: Media; install: st
   const [open, setOpen] = useState(false);
   const words = 'Your TV deserves a better home.'.split(' ');
   const hasVideo = !!(hero.webm || hero.mp4);
+  const hasPic = hasVideo || !!(hero.image || hero.poster);
 
   // Ambient glow: sample the playing frame into a 32x18 canvas twice a second and tint a blurred layer behind the TV (bias lighting).
   useEffect(() => {
     const v = video.current, g = glow.current;
-    if (!v || !g || calm) return;
+    if (!g) return;
     const c = document.createElement('canvas'); c.width = 32; c.height = 18;
     const ctx = c.getContext('2d', { willReadFrequently: true });
     if (!ctx) return;
@@ -27,11 +28,19 @@ export default function Hero({ hero, install, demo }: { hero: Media; install: st
       for (let i = 0; i < d.length; i += 4) { r += d[i]; gg += d[i + 1]; b += d[i + 2]; n++; }
       return `rgb(${Math.round(r / n)} ${Math.round(gg / n)} ${Math.round(b / n)})`;
     };
-    const id = setInterval(() => {
-      if (v.paused || v.readyState < 2) return;
-      ctx.drawImage(v, 0, 0, 32, 18);
+    const paint = (src: CanvasImageSource) => {
+      ctx.drawImage(src, 0, 0, 32, 18);
       g.style.setProperty('--g1', zone(0, 11)); g.style.setProperty('--g2', zone(11, 22)); g.style.setProperty('--g3', zone(22, 32));
-    }, 500);
+    };
+    // Reduced motion or no video yet: tint once from the poster still.
+    if (calm || !v) {
+      const img = g.parentElement?.querySelector<HTMLImageElement>('img.slot-media');
+      if (!img) return;
+      const go = () => paint(img);
+      if (img.complete) go(); else img.addEventListener('load', go, { once: true });
+      return;
+    }
+    const id = setInterval(() => { if (!v.paused && v.readyState >= 2) paint(v); }, 500);
     return () => clearInterval(id);
   }, [calm, hasVideo]);
 
@@ -52,7 +61,7 @@ export default function Hero({ hero, install, demo }: { hero: Media; install: st
           ))}
         </h1>
         <motion.p className="hero-sub" initial={calm ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease, delay: 0.4 }}>
-          An Apple TV-style launcher for Fire TV and Android TV. Your apps up top, featured titles below, built for the remote.
+          An Apple TV-style launcher for Fire TV and Android TV. Apps up top, featured titles below, built for the remote.
         </motion.p>
         <motion.div className="hero-actions" initial={calm ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease, delay: 0.5 }}>
           <a className="pill primary" href={install}><span className="chip"><Icon name="DownloadSimple" size={18} /></span>Get Glass</a>
@@ -61,9 +70,9 @@ export default function Hero({ hero, install, demo }: { hero: Media; install: st
       </div>
 
       <motion.div className="hero-tv" initial={calm ? false : { opacity: 0, y: 70 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.1, ease, delay: 0.55 }}>
-        {hasVideo && <div ref={glow} className="ambient" aria-hidden />}
+        {hasPic && <div ref={glow} className="ambient" aria-hidden />}
         <div className="tv-frame">
-          <Slot media={hero} alt="Glass home screen on a Fire TV, focus moving along the dock" todo="hero loop" w={1920} h={1080} format="webm+mp4" videoRef={video} eager />
+          <Slot media={hero} alt="Glass home screen on a Fire TV, focus moving along the dock" todo="hero loop" w={1920} h={1080} format="webm+mp4" videoRef={video} eager sizes="(min-width: 900px) 62vw, 100vw" />
         </div>
       </motion.div>
 

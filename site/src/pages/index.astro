@@ -14,7 +14,7 @@ import Setup from '../components/Setup.tsx';
 import Faq from '../components/Faq.tsx';
 import SmoothScroll from '../components/SmoothScroll.tsx';
 import Slot from '../components/Slot.tsx';
-import { media } from '../lib/media';
+import { media, hasVideo } from '../lib/media';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const site = 'https://aazainkhan.github.io/glass-os';
@@ -40,18 +40,24 @@ const faq = [
   { q: 'Is it smooth on low-end hardware?', a: 'It is built for that. Glass blurs the wallpaper once and reuses it under every glass surface. On a Fire TV Stick 4K it cold starts in about half a second, with under 1% janky frames while you browse.' },
 ];
 
+const dock = media('dock');
+const heroLoop = media('hero-loop');
+// Hero: the real loop when it exists, otherwise the home dock still as its poster.
+const hero = hasVideo(heroLoop) ? { ...heroLoop, poster: heroLoop.poster ?? dock.image } : { ...dock };
+const remote = media('clip-remote-focus');
+const demoFull = media('demo-full');
 const m = {
-  hero: media('hero-loop'), scene: media('scale-scene'), dock: media('dock'), featured: media('featured'), remote: media('remote-focus'),
-  fin: media('final-loop'), demo: media('demo-full'),
-  dockIcons: [1, 2, 3, 4, 5].map((i) => media(`dock-${i}`)),
+  hero, dock, scene: media('clip-featured'), featured: media('featured'), remote,
+  fin: remote, demo: hasVideo(demoFull) ? demoFull : remote,
+  dockIcons: [1, 2, 3, 4, 5, 6].map((i) => media(`dock-${i}`)),
   shelf: [1, 2, 3].map((i) => media(`shelf-${i}`)),
-  prev: [1, 2, 3, 4].map((i) => media(`preview-${i}`)),
+  prev: [['Control Center', 1], ['App switcher', 2], ['Cover Flow', 3], ['Settings', 4]].map(([label, i]) => ({ label: label as string, m: media(`preview-${i}`) })),
   themes: [1, 2, 3, 4, 5].map((i) => media(`theme-${i}`)),
 };
 const setup = [
-  { title: 'Install it.', lines: ['Download the APK and sideload it with Downloader.', 'Android 9 or newer.'], m: media('setup-install'), todo: 'install capture', alt: 'Sideloading the Glass APK' },
-  { title: 'Set it as home.', lines: ['Turn on Home Button Takeover, or run one adb command.', 'Undo it any time with one command.'], m: media('setup-home'), todo: 'set-as-home capture', alt: 'Making Glass the home screen' },
-  { title: 'Make it yours.', lines: ['Rearrange the dock, pick wallpapers and widgets.', 'Type API keys on your phone, not with the remote.'], m: media('setup-customise'), todo: 'customise capture', alt: 'Customising Glass' },
+  { title: 'Install it.', lines: ['Download the APK and sideload it with Downloader.', 'Android 9 or newer.'], m: dock, todo: 'install capture', alt: 'The Glass home screen after install' },
+  { title: 'Set it as home.', lines: ['Turn on Home Button Takeover, or run one adb command.', 'Undo it any time with one command.'], m: media('setup-home'), todo: 'set-as-home capture', alt: 'Glass settings, Home Screen section' },
+  { title: 'Make it yours.', lines: ['Rearrange the dock, pick wallpapers and widgets.', 'Type API keys on your phone, not with the remote.'], m: media('setup-customise'), todo: 'customise capture', alt: 'Glass appearance settings' },
 ];
 ---
 <!doctype html>
