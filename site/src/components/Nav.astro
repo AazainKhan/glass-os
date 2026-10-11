@@ -1,0 +1,28 @@
+---
+import Logo from './Logo.tsx';
+import Icon from './Icon.tsx';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const { home = true } = Astro.props;
+const p = home ? '' : `${base}/`;
+const links = [
+  { href: `${p}#features`, label: 'Features' },
+  { href: `${p}#try`, label: 'Try it' },
+  { href: `${p}#faq`, label: 'FAQ' },
+];
+---
+<header class="nav glass">
+  <a class="brand" href={`${base}/`} aria-label="Glass home"><Logo /></a>
+  <nav class="nav-links" aria-label="Main">
+    {links.map((l) => <a href={l.href}>{l.label}</a>)}
+  </nav>
+  <div class="nav-end">
+    <a class="pill primary sm" href={`${base}/install/`}><span class="chip"><Icon name="DownloadSimple" size={16} /></span>Get Glass</a>
+    <details class="menu">
+      <summary aria-label="Menu"><Icon name="List" size={22} /></summary>
+      <div class="sheet glass">
+        {links.map((l) => <a href={l.href}>{l.label}</a>)}
+        <a href={`${base}/overview/`}>Docs</a>
+      </div>
+    </details>
+  </div>
+</header>

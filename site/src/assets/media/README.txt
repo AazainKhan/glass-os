@@ -1,0 +1,1 @@
+Drop real captures here. Names the page looks for (webm and/or mp4, plus an optional -poster.png/.jpg): hero-loop, scale-scene, dock, featured, remote-focus, setup-install, setup-home, setup-customise, final-loop, demo-full. Image slots: dock-1..dock-5 (512x288), preview-1..preview-8 (1920x1080), theme-1..theme-5 (1920x1080).

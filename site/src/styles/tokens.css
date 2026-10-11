@@ -1,0 +1,23 @@
+@import '@fontsource-variable/geist';
+@import '@fontsource-variable/geist-mono';
+
+:root {
+  --font: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --mono: 'Geist Mono Variable', ui-monospace, Menlo, monospace;
+
+  --bg: #0a0a0b;
+  --surface: #131316;
+  --surface-2: #1b1b20;
+  --line: rgba(255, 255, 255, 0.08);
+  --text: #ededea;
+  --text-dim: #8e8e96;
+  --accent: #ff5b2e;
+  --on-accent: #0a0a0b;
+
+  --r: 28px;
+  --r-input: 12px;
+  --pill: 999px;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow: 0 30px 80px rgba(6, 6, 10, 0.55);
+}

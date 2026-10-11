@@ -2,32 +2,26 @@
 import Search from '@astrojs/starlight/components/Search.astro';
 import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
 import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
+import Logo from './Logo.tsx';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <div class="docs-head">
-  <a class="brand" href={`${base}/`} aria-label="Glass home">
-    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 21h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-    <span>Glass</span>
-  </a>
+  <a class="brand" href={`${base}/`} aria-label="Glass home"><Logo /></a>
   <nav class="top" aria-label="Site">
     <a href={`${base}/#features`}>Features</a>
-    <a href={`${base}/#how`}>How it works</a>
-    <a href={`${base}/#tiers`}>Tiers</a>
+    <a href={`${base}/#try`}>Try it</a>
+    <a href={`${base}/#faq`}>FAQ</a>
     <a href={`${base}/overview/`} aria-current="page">Docs</a>
   </nav>
-  <div class="tools">
-    <Search />
-    <SocialIcons />
-    <ThemeSelect />
-  </div>
+  <div class="tools"><Search /><SocialIcons /><ThemeSelect /></div>
 </div>
 <style>
   .docs-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: 100%; }
-  .brand { display: flex; align-items: center; gap: .55rem; font-weight: 700; font-size: 1.1rem; color: var(--sl-color-white); text-decoration: none; letter-spacing: -0.01em; }
+  .brand { color: var(--sl-color-white); text-decoration: none; }
+  .brand :global(.logo) { display: inline-flex; align-items: center; gap: .55rem; font-weight: 650; font-size: 1.1rem; }
   .top { display: flex; gap: .25rem; }
-  .top a { color: var(--sl-color-gray-2); text-decoration: none; padding: .4rem .8rem; border-radius: 999px; font-size: .95rem; transition: background .25s, color .25s; }
-  .top a:hover { background: var(--sl-color-gray-6); color: var(--sl-color-white); }
-  .top a[aria-current] { color: var(--sl-color-white); background: var(--sl-color-gray-6); }
+  .top a { color: var(--sl-color-gray-3); text-decoration: none; padding: .4rem .8rem; border-radius: 999px; font-size: .95rem; }
+  .top a:hover, .top a[aria-current] { background: var(--sl-color-gray-6); color: var(--sl-color-white); }
   .tools { display: flex; align-items: center; gap: .75rem; }
   @media (max-width: 800px) { .top { display: none; } }
 </style>

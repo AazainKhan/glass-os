@@ -1,4 +1,4 @@
-@import './glass.css';
+@import './tokens.css';
 
 :root {
   --sl-font: var(--font);
@@ -6,26 +6,26 @@
   --sl-content-width: 46rem;
 }
 :root[data-theme='dark'] {
-  --sl-color-bg: oklch(0.15 0.04 275);
-  --sl-color-bg-nav: oklch(0.17 0.045 275 / 0.7);
-  --sl-color-bg-sidebar: oklch(0.15 0.04 275);
-  --sl-color-bg-inline-code: oklch(0.24 0.05 275);
-  --sl-color-hairline: oklch(1 0 0 / 0.1);
-  --sl-color-hairline-light: oklch(1 0 0 / 0.14);
-  --sl-color-hairline-shade: oklch(1 0 0 / 0.07);
-  --sl-color-white: oklch(0.98 0.006 260);
-  --sl-color-gray-1: oklch(0.9 0.012 265);
-  --sl-color-gray-2: oklch(0.78 0.02 265);
-  --sl-color-gray-3: oklch(0.64 0.025 270);
-  --sl-color-gray-4: oklch(0.46 0.035 272);
-  --sl-color-gray-5: oklch(0.3 0.04 275);
-  --sl-color-gray-6: oklch(0.22 0.045 275);
-  --sl-color-gray-7: oklch(0.17 0.04 275);
-  --sl-color-black: oklch(0.14 0.035 275);
-  --sl-color-accent-low: oklch(0.3 0.07 58);
-  --sl-color-accent: oklch(0.72 0.14 58);
-  --sl-color-accent-high: oklch(0.88 0.1 65);
-  --sl-color-text-accent: oklch(0.84 0.11 62);
+  --sl-color-bg: #0a0a0b;
+  --sl-color-bg-nav: rgba(10, 10, 11, 0.7);
+  --sl-color-bg-sidebar: #0a0a0b;
+  --sl-color-bg-inline-code: #1b1b20;
+  --sl-color-hairline: rgba(255, 255, 255, 0.08);
+  --sl-color-hairline-light: rgba(255, 255, 255, 0.12);
+  --sl-color-hairline-shade: rgba(255, 255, 255, 0.05);
+  --sl-color-white: #ededea;
+  --sl-color-gray-1: #d4d4d0;
+  --sl-color-gray-2: #b0b0b6;
+  --sl-color-gray-3: #8e8e96;
+  --sl-color-gray-4: #5a5a62;
+  --sl-color-gray-5: #2a2a30;
+  --sl-color-gray-6: #1b1b20;
+  --sl-color-gray-7: #131316;
+  --sl-color-black: #0a0a0b;
+  --sl-color-accent-low: #3a1a10;
+  --sl-color-accent: #ff5b2e;
+  --sl-color-accent-high: #ffb199;
+  --sl-color-text-accent: #ff8a66;
 }
 :root[data-theme='light'] {
   --sl-color-bg: oklch(0.985 0.005 270);
@@ -38,9 +38,6 @@
 }
 body { font-feature-settings: 'ss01' on; }
 header.header { -webkit-backdrop-filter: blur(20px) saturate(1.4); backdrop-filter: blur(20px) saturate(1.4); }
-:root[data-theme='dark'] body { background:
-  radial-gradient(60vmax 40vmax at 0% -10%, oklch(0.4 0.1 205 / .35), transparent 70%),
-  radial-gradient(50vmax 40vmax at 100% 0%, oklch(0.36 0.14 296 / .4), transparent 70%), var(--sl-color-bg); background-attachment: fixed; }
 .sl-markdown-content h1, h1#_top { letter-spacing: -0.03em; font-weight: 740; }
 .sl-markdown-content h2 { letter-spacing: -0.02em; }
 .sl-markdown-content a:not(.sl-link-button) { text-underline-offset: .22em; }
