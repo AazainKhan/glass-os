@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Privileged-permission allowlist for a priv-app APK.
-Usage: privapp_xml.py <apk> [--extra-from <RootFeatures.kt>] [--declared-from <manifests.json>] > privapp-permissions-<pkg>.xml
+Usage: privapp_xml.py <apk> [--extra-from <RootFeatures.kt>] [--declared-from <manifests.json|declared-permissions.txt>] > privapp-permissions-<pkg>.xml
 Lists every permission the APK requests (aapt2 dump permissions), plus the strings of EXTRA_PRIVILEGED in the
 given Kotlin file (Glass only; exit 1 if that constant cannot be found), sorted, in the shape
 RootFeatures.installSystemApp writes. Fire OS enforces the allowlist (ro.control_privapp_permissions=enforce):
@@ -34,9 +34,12 @@ def extra_privileged(kt_path):
     return names
 
 
-def declared_names(manifests_json):
-    M = json.load(open(manifests_json))
-    return {pr for es in M.values() for e in es for pr in e['decl_perm']}
+def declared_names(path):
+    """From a manifests.json, or a one-name-per-line list (config/declared-permissions.txt)."""
+    if path.endswith('.json'):
+        M = json.load(open(path))
+        return {pr for es in M.values() for e in es for pr in e['decl_perm']}
+    return {l.strip() for l in open(path) if l.strip()}
 
 
 def render(pkg, perms):

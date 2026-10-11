@@ -1,0 +1,6 @@
+# name	url	sha256	versionName	dest	priv	signer_sha256	package
+# Upstream release APKs, never modified or re-signed. sha256 is the digest GitHub publishes for the release asset;
+# signer_sha256 is the APK signing certificate digest. dest is relative to the module root; priv=yes also writes
+# system/etc/permissions/privapp-permissions-<package>.xml. Droid-ify has a single release flavour (app-release.apk).
+Droidify	https://github.com/Droid-ify/client/releases/download/v0.7.8/app-release.apk	3e7934ff9b811c2f77794793381241095a02bac2d163bf922cb5a5a0ed25ca82	0.7.8	system/priv-app/Droidify	yes	ed8859c55af311162658b94af982b9f091dcd27628d4de3486d1217ebf3c9935	com.looker.droidify
+TVBro	https://github.com/truefedex/tv-bro/releases/download/v2.1.6/tvbro-2.1.6-generic-geckoExcluded.apk	d8634edfe8d94b4fb9a52005d68a090a7f1e85b7f39c2cf01a25dc9dd60942b2	2.1.6	system/app/TVBro	no	1e5124be7e7fcb7a6462b47a42a8567863c6fccc6fe7708cd278be4f43047c75	com.phlox.tvwebbrowser
