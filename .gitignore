@@ -10,3 +10,5 @@ tools/bin/
 .DS_Store
 __pycache__/
 .pytest_cache/
+site/.kit/
+site/.media-raw/

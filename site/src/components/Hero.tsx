@@ -52,7 +52,7 @@ export default function Hero({ hero, install, demo }: { hero: Media; install: st
           ))}
         </h1>
         <motion.p className="hero-sub" initial={calm ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease, delay: 0.4 }}>
-          An Apple TV-style launcher for Fire TV and Android TV. Dock, full-screen previews, built for the remote.
+          An Apple TV-style launcher for Fire TV and Android TV. Your apps up top, featured titles below, built for the remote.
         </motion.p>
         <motion.div className="hero-actions" initial={calm ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease, delay: 0.5 }}>
           <a className="pill primary" href={install}><span className="chip"><Icon name="DownloadSimple" size={18} /></span>Get Glass</a>
