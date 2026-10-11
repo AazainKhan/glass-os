@@ -203,7 +203,7 @@ Track B files as before (`build.sh`, `tools/img_edit.py`, `tools/flashzip/`, `to
 - [ ] **Step 2:** `tools/glasspro/build.sh --upto 1a --glass <apk> --out out/ga1` (batch 1a = `com.amazon.tmm.tutorial` only, as in Task 18).
 - [ ] **Step 3 (user OK):** `adb push out/ga1/glass-pro-*.zip /data/local/tmp/`; `adb shell su -c 'magisk --install-module /data/local/tmp/glass-pro-*.zip'`; reboot.
 - [ ] **Step 4:** `su -c magisk --list-modules` (or `ls /data/adb/modules`) shows only glass-pro + hosts module; `pm list packages | grep -c tmm.tutorial` → `0`; `ls /data/adb/service.d` has neither old script; `tools/smoke.sh` → 0; `scripts/e2e --stick` no new failures; Glass is a single process (`pidof dev.glasslauncher | wc -w` → 1).
-- [ ] **Rollback:** `adb shell su -c 'touch /data/adb/modules/glass-pro/remove'` + reboot, then re-install the three old modules from `~/Documents/glass-launcher/scripts` and restore the two service.d scripts from the module's `backup/`. Bootloop: `adb wait-for-device shell magisk --remove-modules`; else TWRP `rm -rf /data/adb/modules/glass-pro`.
+- [ ] **Rollback:** `adb shell su -c 'touch /data/adb/modules/glass-pro/remove'` + reboot, then re-install the three old modules from `~/Documents/glass-launcher/scripts` and restore the two service.d scripts from `/data/adb/glass-pro-backup/` (the module's own `backup/` is deleted with the module). Bootloop: `adb wait-for-device shell magisk --remove-modules`; else TWRP `rm -rf /data/adb/modules/glass-pro`.
 - [ ] **Step 5: Gate GA1.** Commit `feat(rom): Glass Pro batch 1a on device`.
 
 ### Task 11: Glass Pro batches 1b-8 (Gates GA2.1-GA2.8)

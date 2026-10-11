@@ -11,7 +11,8 @@ Needs a rooted stick (Magisk 20.4 or newer). Magisk app: Modules > Install from 
 `adb push` it and run `su -c 'magisk --install-module /data/local/tmp/<zip>'`. Restart.
 Installing over the older Glass setup is handled: `glass-system`, `glass-tuning` and `glass-remote-keys` are
 marked for removal, and `start-launcher.sh` and `glass-remote-keepalive.sh` are moved from
-`/data/adb/service.d` into this module (`backup/`) so nothing runs twice.
+`/data/adb/service.d` into this module (`backup/`) so nothing runs twice. They are also copied to
+`/data/adb/glass-pro-backup/`, which survives upgrades and removal of the module.
 Refuses to install on other devices or untested Fire OS builds; contributors can create
 `/data/adb/glass-pro-force` to continue anyway.
 
@@ -19,7 +20,8 @@ Refuses to install on other devices or untested Fire OS builds; contributors can
 
 Magisk app > Modules > remove, then restart. A one-shot script restores `max_cached_processes=4`, re-enables
 Amazon's launcher and undoes the remote keymap change after the next boot. The two old boot scripts are not
-brought back.
+brought back; to return to the old setup copy them from `/data/adb/glass-pro-backup/` into
+`/data/adb/service.d/` and reinstall the three old modules.
 
 ## If it bootloops
 

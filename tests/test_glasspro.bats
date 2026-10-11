@@ -112,6 +112,35 @@ customize() {  # $1 = extracted module dir to install from
   [ -e "$BATS_TEST_TMPDIR/adb/service.d/other.sh" ]
 }
 
+@test "upgrade_carries_backup_forward" {
+  mkdir -p "$BATS_TEST_TMPDIR/adb/modules/glass-pro/backup" "$BATS_TEST_TMPDIR/adb/service.d"
+  echo oldka > "$BATS_TEST_TMPDIR/adb/modules/glass-pro/backup/glass-remote-keepalive.sh"
+  echo oldsl > "$BATS_TEST_TMPDIR/adb/modules/glass-pro/backup/start-launcher.sh"
+  run customize "$D/x-full"
+  [ "$status" -eq 0 ]
+  [ "$(cat "$BATS_TEST_TMPDIR/modpath/backup/glass-remote-keepalive.sh")" = oldka ]
+  [ "$(cat "$BATS_TEST_TMPDIR/modpath/backup/start-launcher.sh")" = oldsl ]
+  [ "$(cat "$BATS_TEST_TMPDIR/adb/glass-pro-backup/glass-remote-keepalive.sh")" = oldka ]
+}
+
+@test "backup_is_mirrored_outside_the_module_and_survives_a_reinstall_and_uninstall" {
+  mkdir -p "$BATS_TEST_TMPDIR/adb/service.d"
+  echo ka > "$BATS_TEST_TMPDIR/adb/service.d/glass-remote-keepalive.sh"
+  run customize "$D/x-full"
+  [ "$status" -eq 0 ]
+  [ "$(cat "$BATS_TEST_TMPDIR/adb/glass-pro-backup/glass-remote-keepalive.sh")" = ka ]
+  # second install: nothing in service.d, no live module backup, only the mirror
+  run customize "$D/x-full"
+  [ "$status" -eq 0 ]
+  [ "$(cat "$BATS_TEST_TMPDIR/modpath/backup/glass-remote-keepalive.sh")" = ka ]
+  # uninstall leaves the mirror alone
+  cp -R "$D/x-full" "$BATS_TEST_TMPDIR/mod"
+  ADB_DATA="$BATS_TEST_TMPDIR/adb" sh "$BATS_TEST_TMPDIR/mod/uninstall.sh"
+  [ "$(cat "$BATS_TEST_TMPDIR/adb/glass-pro-backup/glass-remote-keepalive.sh")" = ka ]
+  grep -q 'rm -rf .*glass-pro-restore' "$BATS_TEST_TMPDIR/adb/service.d/glass-pro-restore.sh"
+  if grep -q 'glass-pro-backup' "$BATS_TEST_TMPDIR/adb/service.d/glass-pro-restore.sh"; then return 1; fi
+}
+
 @test "customize_refuses_wrong_device" {
   mkdir -p "$BATS_TEST_TMPDIR/adb/modules/glass-system" "$BATS_TEST_TMPDIR/adb/service.d"
   echo one > "$BATS_TEST_TMPDIR/adb/service.d/start-launcher.sh"
@@ -180,6 +209,7 @@ customize() {  # $1 = extracted module dir to install from
   grep -q 'KEEPALIVE SLOT' "$BATS_TEST_TMPDIR/service.sh"
   grep -q 'keepalive/service.sh' "$BATS_TEST_TMPDIR/service.sh"
   grep -q 'backup/glass-remote-keepalive.sh' "$BATS_TEST_TMPDIR/service.sh"
+  grep -q 'service.d/glass-remote-keepalive.sh' "$BATS_TEST_TMPDIR/service.sh"
   if unzip -Z1 "$ZIP" | grep -q '^keepalive/'; then return 1; fi
   unzip -Z1 "$D/out-ka/glass-pro-0.1.0-b1b.zip" | grep -qx 'keepalive/service.sh'
   [ "$(unzip -p "$D/out-ka/glass-pro-0.1.0-b1b.zip" keepalive/service.sh)" = "$(cat "$D/keepalive.sh")" ]

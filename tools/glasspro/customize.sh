@@ -57,11 +57,28 @@ for m in glass-system glass-tuning glass-remote-keys; do
     ui_print "  $m: removed on next restart"
   fi
 done
+# The scripts are kept in $MODPATH/backup/ and mirrored to $ADB_DATA/glass-pro-backup/, a directory nothing
+# executes and the module's removal never deletes (a removed module's own directory is gone after the next
+# boot). An upgrade install starts from an empty $MODPATH, so a script already backed up is carried forward
+# from the live module or the mirror when service.d no longer has it.
+BK="$ADB_DATA/glass-pro-backup"
 for s in start-launcher.sh glass-remote-keepalive.sh; do
   if [ -f "$ADB_DATA/service.d/$s" ]; then
     mkdir -p "$MODPATH/backup"
     mv "$ADB_DATA/service.d/$s" "$MODPATH/backup/$s"
     ui_print "  $s: moved into the module (backup/)"
+  elif [ -f "$ADB_DATA/modules/glass-pro/backup/$s" ]; then
+    mkdir -p "$MODPATH/backup"
+    cp -f "$ADB_DATA/modules/glass-pro/backup/$s" "$MODPATH/backup/$s"
+    ui_print "  $s: backup carried forward"
+  elif [ -f "$BK/$s" ]; then
+    mkdir -p "$MODPATH/backup"
+    cp -f "$BK/$s" "$MODPATH/backup/$s"
+    ui_print "  $s: backup carried forward from $BK"
+  fi
+  if [ -f "$MODPATH/backup/$s" ]; then
+    mkdir -p "$BK"
+    cp -f "$MODPATH/backup/$s" "$BK/$s"
   fi
 done
 ui_print "- Done. Restart the TV to apply."

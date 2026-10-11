@@ -77,7 +77,8 @@ start_launcher() {
 #   1. keepalive/service.sh in this module (build.sh --keepalive <script> puts the new one there);
 #   2. otherwise the old glass-remote-keepalive.sh that customize.sh moved to backup/, verbatim, so an
 #      upgrade from the old setup keeps the remote paired;
-#   3. nothing, if the separate glass-remote-keepalive module is installed (it runs itself).
+#   3. nothing, if the separate glass-remote-keepalive module is installed, or a glass-remote-keepalive.sh is
+#      back in /data/adb/service.d (the reworked one): those run themselves.
 # Never more than one of them.
 keepalive_slot() {
   if [ -f "$MODDIR/keepalive/service.sh" ]; then
@@ -85,6 +86,8 @@ keepalive_slot() {
   elif [ -d /data/adb/modules/glass-remote-keepalive ] && [ ! -e /data/adb/modules/glass-remote-keepalive/disable ] \
        && [ ! -e /data/adb/modules/glass-remote-keepalive/remove ]; then
     log "keepalive: separate module installed, slot idle"
+  elif [ -f /data/adb/service.d/glass-remote-keepalive.sh ]; then
+    log "keepalive: script in service.d, slot idle"
   elif [ -f "$MODDIR/backup/glass-remote-keepalive.sh" ]; then
     log "keepalive: legacy script from backup/"; sh "$MODDIR/backup/glass-remote-keepalive.sh"
   else

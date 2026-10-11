@@ -4,7 +4,8 @@
 # puts Fire OS back and deletes itself. The module's files (key layout overlay, zram size, replaced
 # Amazon packages, Glass priv-app) disappear with the module directory.
 # Not restored (they belonged to the old setup): /data/adb/service.d/start-launcher.sh and
-# glass-remote-keepalive.sh. Their copies were in this module's backup/ directory, which is gone now.
+# glass-remote-keepalive.sh. Copies stay in /data/adb/glass-pro-backup/ (never deleted here; nothing runs
+# them); to roll back to the old setup copy them into /data/adb/service.d/.
 MODDIR=${0%/*}
 ADB_DATA="${ADB_DATA:-/data/adb}"
 STAGE="$ADB_DATA/glass-pro-restore"
