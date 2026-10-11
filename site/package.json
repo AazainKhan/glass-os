@@ -3,7 +3,9 @@
   "type": "module",
   "version": "0.0.1",
   "private": true,
-  "engines": { "node": ">=22.12.0" },
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -13,6 +15,7 @@
   },
   "dependencies": {
     "@astrojs/starlight": "0.42.6",
+    "@fontsource-variable/hanken-grotesk": "5.3.0",
     "astro": "7.3.8",
     "starlight-llms-txt": "0.12.0"
   }

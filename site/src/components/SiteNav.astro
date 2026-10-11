@@ -1,0 +1,63 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const { home = true } = Astro.props;
+const prefix = home ? '' : `${base}/`;
+const links = [
+  { href: `${prefix}#features`, label: 'Features' },
+  { href: `${prefix}#how`, label: 'How it works' },
+  { href: `${prefix}#tiers`, label: 'Tiers' },
+  { href: `${base}/overview/`, label: 'Docs' },
+];
+---
+<header class="nav">
+  <a class="brand" href={`${base}/`} aria-label="Glass home">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 21h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <span>Glass</span>
+  </a>
+  <nav class="links" aria-label="Main">
+    {links.map((l) => <a href={l.href}>{l.label}</a>)}
+  </nav>
+  <div class="end">
+    <a class="gh" href="https://github.com/AazainKhan/glass-tv-launcher" aria-label="Glass on GitHub">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.46-1.1-1.46-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.9.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.9-1.29 2.74-1.02 2.74-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+    </a>
+    <a class="cta" href="https://github.com/AazainKhan/glass-tv-launcher/releases">Download</a>
+    <details class="menu">
+      <summary aria-label="Menu"><span></span><span></span></summary>
+      <div class="sheet">
+        {links.map((l) => <a href={l.href}>{l.label}</a>)}
+      </div>
+    </details>
+  </div>
+</header>
+<style>
+  .nav {
+    position: fixed; z-index: 50; inset: 14px 0 auto 0; margin-inline: auto;
+    width: min(1120px, calc(100% - 28px));
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 8px 10px 8px 18px; border-radius: 999px;
+    background: oklch(0.16 0.04 275 / 0.55);
+    -webkit-backdrop-filter: blur(22px) saturate(1.5); backdrop-filter: blur(22px) saturate(1.5);
+    border: 1px solid var(--glass-line);
+    box-shadow: inset 0 1px 0 var(--glass-shine), 0 12px 40px oklch(0.05 0.03 275 / 0.45);
+  }
+  .brand { display: flex; align-items: center; gap: 9px; color: var(--text); text-decoration: none; font-weight: 700; letter-spacing: -0.01em; font-size: 1.05rem; }
+  .links { display: flex; gap: 4px; }
+  .links a, .sheet a { color: var(--text-2); text-decoration: none; padding: 8px 14px; border-radius: 999px; font-weight: 500; font-size: 0.95rem; transition: background .25s var(--ease), color .25s var(--ease); }
+  .links a:hover, .sheet a:hover { background: var(--glass-hi); color: var(--text); }
+  .end { display: flex; align-items: center; gap: 6px; }
+  .gh { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; color: var(--text-2); transition: background .25s var(--ease), color .25s; }
+  .gh:hover { background: var(--glass-hi); color: var(--text); }
+  .cta { background: var(--text); color: var(--ink-0); padding: 9px 18px; border-radius: 999px; font-weight: 650; font-size: 0.93rem; text-decoration: none; transition: transform .5s var(--spring), background .25s; }
+  .cta:hover { transform: scale(1.06); }
+  .menu { display: none; position: relative; }
+  .menu summary { list-style: none; cursor: pointer; width: 40px; height: 40px; border-radius: 50%; display: grid; place-content: center; gap: 6px; }
+  .menu summary::-webkit-details-marker { display: none; }
+  .menu summary span { display: block; width: 18px; height: 2px; background: var(--text); border-radius: 2px; transition: transform .35s var(--ease); }
+  .menu[open] summary span:first-child { transform: translateY(4px) rotate(45deg); }
+  .menu[open] summary span:last-child { transform: translateY(-4px) rotate(-45deg); }
+  .sheet { position: absolute; right: 0; top: 52px; min-width: 220px; display: grid; padding: 8px; border-radius: 22px; background: oklch(0.17 0.04 275 / 0.85); -webkit-backdrop-filter: blur(24px) saturate(1.5); backdrop-filter: blur(24px) saturate(1.5); border: 1px solid var(--glass-line); box-shadow: inset 0 1px 0 var(--glass-shine), 0 20px 50px oklch(0.05 0.03 275 / 0.5); animation: sheet .4s var(--ease); }
+  @keyframes sheet { from { opacity: 0; transform: translateY(-8px) scale(.97); } }
+  @media (max-width: 760px) { .links { display: none; } .menu { display: block; } .gh { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .sheet { animation: none; } .cta { transition: none; } }
+</style>
