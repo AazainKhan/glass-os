@@ -4,7 +4,7 @@ import { spawnSync } from 'node:child_process';
 
 const file = 'src/content/docs/agents/runbook.md';
 const text = readFileSync(file, 'utf8');
-const blocks = [...text.matchAll(/```bash\n([\s\S]*?)```/g)].map((m) => m[1]);
+const blocks = [...text.matchAll(/```bash[^\n]*\n([\s\S]*?)```/g)].map((m) => m[1]);
 let bad = 0;
 blocks.forEach((b, i) => {
   const r = spawnSync('bash', ['-n'], { input: b, encoding: 'utf8' });

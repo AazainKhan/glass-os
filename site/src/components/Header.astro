@@ -25,3 +25,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   .tools { display: flex; align-items: center; gap: .75rem; }
   @media (max-width: 800px) { .top { display: none; } }
 </style>
+<script>
+  // "/" opens search, like Cmd or Ctrl+K; the hint sits next to Starlight's own shortcut badge.
+  const open = () => document.querySelector<HTMLButtonElement>('button[data-open-modal]');
+  document.addEventListener('keydown', (e) => {
+    const t = e.target as HTMLElement;
+    if (e.key === '/' && !e.metaKey && !e.ctrlKey && !/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) && !t.isContentEditable) { e.preventDefault(); open()?.click(); }
+  });
+  const badge = open()?.querySelector('kbd');
+  if (badge) badge.insertAdjacentHTML('beforebegin', '<kbd class="slash" aria-hidden="true">/</kbd>');
+</script>

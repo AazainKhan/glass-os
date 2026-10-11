@@ -1,9 +1,10 @@
 import {
   Television, DownloadSimple, PlayCircle, List, X, GithubLogo, FilmSlate, Image as ImageIcon,
   CaretUp, CaretDown, CaretLeft, CaretRight, ArrowUUpLeft, House, Plus, Minus, ArrowRight,
+  Copy, Check, FileMd, Sparkle, Robot, ThumbsUp, ThumbsDown, Bug, ClockCounterClockwise, BookOpen, Pencil, ArrowSquareOut, Terminal,
 } from '@phosphor-icons/react';
 
-const icons = { Television, DownloadSimple, PlayCircle, List, X, GithubLogo, FilmSlate, ImageIcon, CaretUp, CaretDown, CaretLeft, CaretRight, ArrowUUpLeft, House, Plus, Minus, ArrowRight };
+const icons = { Television, DownloadSimple, PlayCircle, List, X, GithubLogo, FilmSlate, ImageIcon, CaretUp, CaretDown, CaretLeft, CaretRight, ArrowUUpLeft, House, Plus, Minus, ArrowRight, Copy, Check, FileMd, Sparkle, Robot, ThumbsUp, ThumbsDown, Bug, ClockCounterClockwise, BookOpen, Pencil, ArrowSquareOut, Terminal };
 export type IconName = keyof typeof icons;
 
 // One stroke weight everywhere: regular.

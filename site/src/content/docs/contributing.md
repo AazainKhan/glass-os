@@ -27,7 +27,7 @@ Glass is open source (Apache-2.0) and contributions are welcome. You do not need
 
 Needs Node 22.12 or newer.
 
-```bash
+```bash title="Terminal"
 cd site
 npm install
 npm run dev        # local preview

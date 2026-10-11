@@ -13,7 +13,7 @@ Keep the undo command to hand. If Amazon's launcher is disabled and Glass is lat
 
 On the stick: Settings, My Fire TV, About, click the device name seven times to enable Developer options. Then Settings, My Fire TV, Developer options, turn on **ADB debugging**. Find the stick's IP under Settings, My Fire TV, About, Network.
 
-```bash
+```bash title="Terminal: adb"
 adb connect STICK_IP:5555
 adb devices
 ```
@@ -22,7 +22,7 @@ The first connection shows an authorisation prompt on the TV. Choose Allow.
 
 ## Make Glass the home screen
 
-```bash
+```bash title="Terminal: adb"
 adb shell pm disable-user --user 0 com.amazon.tv.launcher
 ```
 
@@ -30,7 +30,7 @@ Press Home. You should land in Glass with no Amazon flash.
 
 **Undo:**
 
-```bash
+```bash title="Terminal: adb"
 adb shell pm enable com.amazon.tv.launcher
 ```
 
@@ -40,7 +40,7 @@ This route relies on `pm disable-user` working from the adb shell without root, 
 
 Everything works without these. Run any you want:
 
-```bash
+```bash title="Terminal: adb"
 # Aerials as screensaver, and switch on the Home-button fallback
 adb shell pm grant dev.glasslauncher android.permission.WRITE_SECURE_SETTINGS
 # Full recent-apps list in the app switcher

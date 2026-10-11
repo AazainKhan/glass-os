@@ -1,0 +1,46 @@
+---
+import Default from '@astrojs/starlight/components/Footer.astro';
+import Icon from './Icon.tsx';
+import { SITE, REPO, LAUNCHER_REPO, pathFor } from '../lib/site';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const { entry } = Astro.locals.starlightRoute;
+const url = `${SITE}${pathFor(entry.id)}/`;
+const issue = (answer: string) => `${REPO}/issues/new?${new URLSearchParams({ title: `Docs feedback (${answer}): ${entry.data.title}`, body: `Page: ${url}\n\nWas this page helpful? ${answer}\n\nWhat were you trying to do?\n`, labels: 'docs' })}`;
+---
+<div class="feedback">
+  <p id="fb-q">Was this page helpful?</p>
+  <div class="fb-btns" role="group" aria-labelledby="fb-q">
+    <a class="fb" href={issue('Yes')} target="_blank" rel="noopener" title="No tracking: this opens a prefilled GitHub issue with the page URL."><Icon name="ThumbsUp" size={16} />Yes</a>
+    <a class="fb" href={issue('No')} target="_blank" rel="noopener" title="No tracking: this opens a prefilled GitHub issue with the page URL."><Icon name="ThumbsDown" size={16} />No</a>
+  </div>
+  <p class="fb-note">Opens a prefilled GitHub issue. Nothing is tracked.</p>
+</div>
+
+<Default><slot /></Default>
+
+<aside class="help" aria-label="Help">
+  <h2>Need help?</h2>
+  <ul>
+    <li><a href={`${REPO}/issues/new`}><Icon name="Bug" size={20} /><span><strong>Report an issue</strong><small>Open an issue on GitHub</small></span></a></li>
+    <li><a href={`${LAUNCHER_REPO}/releases`}><Icon name="ClockCounterClockwise" size={20} /><span><strong>Changelog</strong><small>Release notes on GitHub</small></span></a></li>
+    <li><a href={`${base}/contributing/`}><Icon name="BookOpen" size={20} /><span><strong>Contributing guide</strong><small>Code, docs and device reports</small></span></a></li>
+    <li><a href={`${base}/llms.txt`}><Icon name="FileMd" size={20} /><span><strong>LLM? Read llms.txt</strong><small>Index for agents and models</small></span></a></li>
+  </ul>
+</aside>
+<style>
+  .feedback { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--sl-color-hairline); }
+  .feedback p { margin: 0; font-weight: 550; color: var(--sl-color-white); }
+  .fb-btns { display: flex; gap: .5rem; }
+  .fb { display: inline-flex; align-items: center; gap: .4rem; padding: .4rem .9rem; border-radius: 999px; border: 1px solid var(--sl-color-hairline-light); color: var(--sl-color-gray-2); text-decoration: none; font-size: var(--sl-text-sm); }
+  .fb:hover { background: var(--sl-color-gray-6); color: var(--sl-color-white); }
+  .feedback .fb-note { font-weight: 400; color: var(--sl-color-gray-3); font-size: var(--sl-text-xs); flex-basis: 100%; }
+  .help { margin-top: 2.5rem; padding: 1.5rem; border: 1px solid var(--sl-color-hairline); border-radius: 28px; background: var(--sl-color-gray-7); }
+  .help h2 { margin: 0 0 1rem; font-size: var(--sl-text-lg); font-weight: 600; border: 0; padding: 0; }
+  .help ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: .5rem; }
+  .help a { display: flex; gap: .75rem; align-items: flex-start; padding: .75rem; border-radius: 28px; text-decoration: none; color: var(--sl-color-gray-2); }
+  .help a:hover { background: var(--sl-color-gray-6); }
+  .help span { display: grid; }
+  .help strong { color: var(--sl-color-white); font-weight: 550; }
+  .help small { color: var(--sl-color-gray-3); font-size: var(--sl-text-sm); }
+</style>

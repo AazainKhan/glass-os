@@ -5,7 +5,7 @@ description: Short, verifiable install steps for an agent working against a conn
 
 Read [For agents](/glass-os/agents/) for the safety rules first. Each step: **Do**, **Verify** (expected output below it), **If it fails**. "contains" means a substring match is enough. Stop and ask the user whenever a step says **Ask user**.
 
-```bash
+```bash title="Terminal"
 export GLASS_APK="$HOME/Downloads/glass-tv-launcher.apk"
 ```
 
@@ -15,11 +15,11 @@ With more than one device, add `-s SERIAL` to every `adb` command.
 
 ### 1. Reach the stick
 
-```bash
+```bash title="Terminal: adb"
 adb get-state
 ```
 
-```text
+```text title="Expected output"
 device
 ```
 
@@ -27,11 +27,11 @@ If it fails: `unauthorized` means **Ask user** to accept the prompt on the TV. N
 
 ### 2. Check the model
 
-```bash
+```bash title="Terminal: adb"
 adb shell getprop ro.product.device
 ```
 
-```text
+```text title="Expected output"
 karat
 ```
 
@@ -41,21 +41,21 @@ If it fails: another value is an untested device. **Ask user** before continuing
 
 **Ask user** to approve.
 
-```bash
+```bash title="Terminal: adb"
 test -f "$GLASS_APK" && adb install -r "$GLASS_APK"
 ```
 
-```text
+```text title="Expected output"
 Success
 ```
 
 Verify:
 
-```bash
+```bash title="Terminal: adb"
 adb shell pm list packages dev.glasslauncher
 ```
 
-```text
+```text title="Expected output"
 package:dev.glasslauncher
 ```
 
@@ -63,11 +63,11 @@ If it fails: `adb uninstall dev.glasslauncher`, then stop.
 
 ### 4. Note the current home
 
-```bash
+```bash title="Terminal: adb"
 adb shell cmd package resolve-activity --brief -a android.intent.action.MAIN -c android.intent.category.HOME
 ```
 
-```text
+```text title="Expected output"
 last line names the current home, normally com.amazon.tv.launcher/...
 ```
 
@@ -77,21 +77,21 @@ Write it down as the "before" value.
 
 **Ask user** to approve disabling Amazon's launcher.
 
-```bash
+```bash title="Terminal: adb"
 adb shell pm disable-user --user 0 com.amazon.tv.launcher
 ```
 
-```text
+```text title="Expected output"
 contains: new state: disabled-user
 ```
 
 Verify:
 
-```bash
+```bash title="Terminal: adb"
 adb shell cmd package resolve-activity --brief -a android.intent.action.MAIN -c android.intent.category.HOME
 ```
 
-```text
+```text title="Expected output"
 last line starts with: dev.glasslauncher/
 ```
 
@@ -99,12 +99,12 @@ If it fails: `adb shell pm enable com.amazon.tv.launcher`, then stop.
 
 ### 6. Home reaches Glass
 
-```bash
+```bash title="Terminal: adb"
 adb shell input keyevent KEYCODE_HOME
 adb shell dumpsys activity activities | grep -m1 topResumedActivity
 ```
 
-```text
+```text title="Expected output"
 contains: dev.glasslauncher
 ```
 
@@ -114,7 +114,7 @@ If it fails: roll back as in step 5, then stop.
 
 **Ask user** which of these they want. Run only those.
 
-```bash
+```bash title="Terminal: adb"
 adb shell pm grant dev.glasslauncher android.permission.WRITE_SECURE_SETTINGS
 adb shell appops set dev.glasslauncher GET_USAGE_STATS allow
 adb shell pm grant dev.glasslauncher android.permission.ACCESS_FINE_LOCATION
@@ -122,12 +122,12 @@ adb shell pm grant dev.glasslauncher android.permission.ACCESS_FINE_LOCATION
 
 Verify:
 
-```bash
+```bash title="Terminal: adb"
 adb shell dumpsys package dev.glasslauncher | grep -E "WRITE_SECURE_SETTINGS|ACCESS_FINE_LOCATION"
 adb shell appops get dev.glasslauncher GET_USAGE_STATS
 ```
 
-```text
+```text title="Expected output"
 each granted permission line contains: granted=true
 GET_USAGE_STATS: allow
 ```
@@ -144,11 +144,11 @@ The Magisk module does not exist yet. R1 and R2 check readiness and can run toda
 
 **Ask user** to accept the Magisk prompt on the TV.
 
-```bash
+```bash title="Terminal: adb"
 adb shell su -c id
 ```
 
-```text
+```text title="Expected output"
 contains: uid=0(root)
 ```
 
@@ -156,11 +156,11 @@ If it fails: stop. Skip every root-only step.
 
 ### R2. Magisk is present (Root only)
 
-```bash
+```bash title="Terminal: adb"
 adb shell su -c "magisk -c"
 ```
 
-```text
+```text title="Expected output"
 a non-empty version string, for example 30.7:MAGISKSU
 ```
 
@@ -170,11 +170,11 @@ If it fails: stop.
 
 **Ask user** to approve the install and a reboot. Command: coming soon.
 
-```bash
+```bash title="Terminal: adb"
 adb shell su -c "ls /data/adb/modules"
 ```
 
-```text
+```text title="Expected output"
 contains the Glass module directory
 ```
 

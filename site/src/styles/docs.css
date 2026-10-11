@@ -49,3 +49,14 @@ header.header { -webkit-backdrop-filter: blur(20px) saturate(1.4); backdrop-filt
 :focus-visible { outline-color: var(--sl-color-accent); }
 html { scrollbar-color: oklch(1 0 0 / .25) transparent; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* one accent: asides stay neutral, pagination follows the 28px shape */
+:root[data-theme='dark'] {
+  --sl-color-orange-low: #1b1b20; --sl-color-orange: #b0b0b6; --sl-color-orange-high: #ededea;
+  --sl-color-blue-low: #1b1b20; --sl-color-blue: #b0b0b6; --sl-color-blue-high: #ededea;
+  --sl-color-purple-low: #1b1b20; --sl-color-purple: #b0b0b6; --sl-color-purple-high: #ededea;
+  --sl-color-red-low: #1b1b20; --sl-color-red: #b0b0b6; --sl-color-red-high: #ededea;
+  --sl-color-green-low: #1b1b20; --sl-color-green: #b0b0b6; --sl-color-green-high: #ededea;
+}
+.pagination-links a { border-radius: 28px; }
+kbd.slash { margin-inline-end: .25rem; }

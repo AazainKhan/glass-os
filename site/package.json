@@ -8,9 +8,10 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/check-dashes.mjs",
+    "build": "astro build && node scripts/check-dashes.mjs && node scripts/check-md.mjs",
     "preview": "astro preview",
     "check:runbooks": "node scripts/check-runbooks.mjs",
+    "check:md": "node scripts/check-md.mjs",
     "check:dashes": "node scripts/check-dashes.mjs",
     "check:leaks": "node scripts/check-leaks.mjs"
   },
