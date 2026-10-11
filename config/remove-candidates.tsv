@@ -29,3 +29,9 @@ com.amazon.neo.minerva	4	Minerva metrics service; disabled since 2026-10-07; dec
 com.amazon.device.software.ota	4	OTA service; disabled since 2026-10-07; sharedUserId with override; declares perms used by 19 pkgs
 com.amazon.tv.launcher	5	Amazon launcher; disabled today; declares 41 perms; guarded components outside launcher are launcher-card flows only
 com.amazon.firehomestarter	5	Home starter; disabled today; no reverse deps, no declared perms
+com.amazon.tahoe	6	Amazon Kids (decision 9); lint clean alone 2026-10-10; profilepicker and parentalcontrols stay and must pass the checklist
+com.android.protips	7	AOSP leftover (decision 6); no reverse deps
+com.android.printservice.recommendation	7	AOSP leftover (decision 6); print-plugin recommendations, no printing on a TV stick; no reverse deps
+com.android.bookmarkprovider	7	AOSP leftover (decision 6); browser bookmark provider; no reverse deps
+com.android.htmlviewer	7	AOSP leftover (decision 6); local .html viewer; no reverse deps
+com.amazon.cloud9	8	Silk browser stub (decision 9); only after the replacement browser resolves VIEW https URLs

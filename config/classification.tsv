@@ -124,7 +124,7 @@ com.amazon.application.compatibility.enforcer.sdk.library	INVESTIGATE	Its SDK li
 com.amazon.dcp.contracts.framework.library	KEEP	Shared library (DeviceClientPlatformContractsFramework)
 com.amazon.dcp.contracts.library	INVESTIGATE	DeviceSoftwareOTAContracts library; remove only with lint green
 com.amazon.alta.h2clientservice	INVESTIGATE	H2 client; R5 incl. profilepicker chain (prism)
-com.amazon.tahoe	INVESTIGATE	Amazon Kids; HOME category; R3 profilepicker,xpicker
+com.amazon.tahoe	REMOVE	Amazon Kids; decision 9; batch 6 (profilepicker and parentalcontrols stay and must pass the checklist)
 com.amazon.ftv.xpicker	INVESTIGATE	HOME category; picker for profiles/kids
 com.amazon.tv.turnstile	INVESTIGATE	R4 incl. vizzini; turnstile/onboarding
 com.amazon.tigris	INVESTIGATE	Unknown; uses launcher perms
@@ -148,10 +148,14 @@ com.amazon.sharingservice.android.client.proxy	INVESTIGATE	Sharing service
 com.amazon.appaccesskeyprovider	INVESTIGATE	App access keys for settings
 com.amazon.ods.kindleconnect	INVESTIGATE	On-device support/connect
 com.amazon.tv.website_launcher	INVESTIGATE	Website launcher
-com.amazon.cloud9	INVESTIGATE	Silk browser stub
+com.amazon.cloud9	REMOVE	Silk browser stub; decision 9; batch 8, only after the replacement browser resolves VIEW https
 com.amazon.hedwig	INVESTIGATE	Stub; Glass hides it
 com.amazon.bueller.music	INVESTIGATE	Amazon Music stub
 com.amazon.tv.easyupgrade	INVESTIGATE	Upgrade promo; but R4 incl. oobe, settings, parentalcontrols
 com.amazon.providers.contentsupport	KEEP	Content support provider (system uid); R2 logan, ivona
 com.amazon.whisperjoin.middleware.v2.np	INVESTIGATE	FFS provisioning/pairing stack; remote pairing fragile (P37); moved from REMOVE batch 2 by manager review 2026-10-10
 com.amazon.spotify.mediabrowserservice	INVESTIGATE	User uses Spotify; may back Alexa Spotify playback; moved from REMOVE batch 3 by manager review 2026-10-10
+com.android.protips	REMOVE	AOSP leftover (decision 6); batch 7; no reverse deps, no components TV uses
+com.android.printservice.recommendation	REMOVE	AOSP leftover (decision 6); batch 7; print-plugin recommendations, no printing on a TV stick
+com.android.bookmarkprovider	REMOVE	AOSP leftover (decision 6); batch 7; browser bookmark provider, no reverse deps
+com.android.htmlviewer	REMOVE	AOSP leftover (decision 6); batch 7; local .html viewer, no reverse deps
