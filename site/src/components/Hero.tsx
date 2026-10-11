@@ -12,7 +12,7 @@ export default function Hero({ hero, install, demo }: { hero: Media; install: st
   const glow = useRef<HTMLDivElement>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const [open, setOpen] = useState(false);
-  const words = 'Your TV deserves a better home.'.split(' ');
+  const words = 'tvOS on your Fire TV.'.split(' ');
   const hasVideo = !!(hero.webm || hero.mp4);
   const hasPic = hasVideo || !!(hero.image || hero.poster);
 
@@ -54,7 +54,7 @@ export default function Hero({ hero, install, demo }: { hero: Media; install: st
   return (
     <section className="hero" id="top">
       <div className="hero-text">
-        <h1 aria-label="Your TV deserves a better home.">
+        <h1 aria-label="tvOS on your Fire TV.">
           {words.map((w, i) => (
             <motion.span key={i} aria-hidden className="word" initial={calm ? false : { opacity: 0, y: '0.55em' }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease, delay: i * 0.06 }}>
               {w}&nbsp;
@@ -62,7 +62,7 @@ export default function Hero({ hero, install, demo }: { hero: Media; install: st
           ))}
         </h1>
         <motion.p className="hero-sub" initial={calm ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease, delay: 0.4 }}>
-          An Apple TV-style launcher for Fire TV and Android TV. Apps up top, featured titles below, built for the remote.
+          Glass is a free, open-source home screen with Apple TV's look: Top Shelf, Cover Flow and a Control Center that opens in about 200 ms. Sideload it in a minute.
         </motion.p>
         <motion.div className="hero-actions" initial={calm ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease, delay: 0.5 }}>
           <a className="pill primary" href={install}><span className="chip"><Icon name="DownloadSimple" size={18} /></span>Get Glass</a>

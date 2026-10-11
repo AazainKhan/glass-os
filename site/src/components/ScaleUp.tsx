@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Slot from './Slot';
 import type { Media } from '../lib/media';
 
-const caps = ['One dock for everything.', 'Featured titles up top.', 'Focus with a spring.', 'Your apps, your order.'];
+const caps = ['Focus moves along the dock.', 'Each app brings its own art.', 'The Top Shelf pulls up.', 'Focus moves along the row.'];
 
 export default function ScaleUp({ scene }: { scene: Media }) {
   const root = useRef<HTMLElement>(null);

@@ -1,134 +1,121 @@
 ---
 import '../styles/tokens.css';
 import '../styles/landing.css';
-import QRCode from 'qrcode';
-import { siNetflix, siHbomax, siPlex, siYoutube, siStremio, siKodi, siJellyfin, siTwitch, siSpotify } from 'simple-icons';
 import Nav from '../components/Nav.astro';
 import Icon from '../components/Icon.tsx';
 import Logo from '../components/Logo.tsx';
-import Hero from '../components/Hero.tsx';
-import ScaleUp from '../components/ScaleUp.tsx';
-import TryIt from '../components/TryIt.tsx';
-import Bento from '../components/Bento.tsx';
-import Setup from '../components/Setup.tsx';
-import Faq from '../components/Faq.tsx';
-import SmoothScroll from '../components/SmoothScroll.tsx';
-import Slot from '../components/Slot.tsx';
-import { media, hasVideo } from '../lib/media';
+import { media } from '../lib/media';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const site = 'https://aazainkhan.github.io/glass-os';
 const install = `${base}/install/`;
 const repo = 'https://github.com/AazainKhan/glass-tv-launcher';
 
-const qr = await QRCode.toString(`${site}/install/`, { type: 'svg', margin: 1, color: { dark: '#0a0a0b', light: '#ededea' } });
-
-const brands = [siNetflix, siHbomax, siPlex, siYoutube, siStremio, siKodi, siJellyfin, siTwitch, siSpotify];
-
 const ways = [
-  { name: 'Install the app', who: 'Anyone with a Fire TV, Android TV or Google TV.', need: 'The remote and a way to sideload, such as Downloader.', get: 'Glass on your TV. On Fire TV an accessibility toggle brings it back over Amazon’s home.', status: 'Recommended', href: `${base}/install/app/` },
-  { name: 'Install + one command', who: 'Fire TV owners who want no flash of Amazon’s home.', need: 'The above, plus a computer with adb.', get: 'One adb command makes Glass the real home screen. Optional grants unlock a few extras.', status: 'Available', href: `${base}/install/app-plus-adb/` },
-  { name: 'Rooted install', who: 'Tinkerers with a rooted Fire TV Stick 4K.', need: 'Magisk.', get: 'One module: built-in system app, remote buttons, Control Center over apps, memory tuning.', status: 'Coming soon', href: `${base}/install/rooted/` },
-  { name: 'Full system install', who: 'People who want Amazon’s bloat gone.', need: 'An unlocked bootloader, a custom recovery and your own OTA file.', get: 'A rebuilt Fire OS image with Glass built in.', status: 'In development', href: `${base}/install/full-system/` },
+  { name: 'APK', note: 'Sideload the app. No root. On Fire TV, one adb command makes it the real home screen.', status: 'Available', href: `${base}/install/app/` },
+  { name: 'Glass Pro (rooted)', note: 'One Magisk zip: Glass as a system app, hold-Home pairing, remote buttons, Control Center over apps.', status: 'Coming soon', href: `${base}/install/rooted/` },
+  { name: 'Glass OS', note: 'A rebuilt Fire OS with Glass built in.', status: 'In development', href: `${base}/install/full-system/` },
+];
+
+const stills = [
+  { m: media('preview-3'), t: 'Cover Flow', d: 'Spotify covers in the Top Shelf become a Cover Flow of your albums and playlists.' },
+  { m: media('preview-2'), t: 'App switcher', d: 'Recent apps as cards. Press up to close one.' },
+  { m: media('preview-4'), t: 'Customizable Control Center', d: 'Opens in about 200 ms. Add, remove and resize its controls from Settings.' },
+];
+
+const more = [
+  { t: 'Info with the cast.', d: 'Press Info on a Top Shelf title for cast photos, director, writers and seasons.', tag: 'Today' },
+  { t: 'Pair a remote by holding Home.', d: 'Hold Home for 10 seconds, as on Apple TV. The Remotes panel in Control Center shows what Glass sees.', tag: 'Glass Pro' },
+  { t: 'AirPlay.', d: 'Built-in AirPlay is coming. Today the separate PhairPlay receiver does it, switched on from Control Center.', tag: 'Coming' },
+  { t: 'Downloads and Sonos.', d: 'A downloads shelf and Sonos control are being built.', tag: 'Coming' },
 ];
 
 const faq = [
   { q: 'Which devices does it run on?', a: 'Glass needs Android 9 or newer. It is tested on the Fire TV Stick 4K (2nd gen) only. Other Fire TV, Android TV and Google TV devices should work, but nobody has verified that yet.' },
-  { q: 'Is it on a store, or do I sideload it?', a: 'You sideload it. Download the APK from the GitHub releases page and install it with an app such as Downloader. Updates come from the same releases page, inside the app.' },
-  { q: 'Does it replace the stock launcher?', a: 'On Google TV and Android TV you can make Glass the default in Settings. Fire OS has no default picker, so Glass either brings itself back over Amazon’s home or you disable Amazon’s launcher with one adb command. Both are reversible.' },
-  { q: 'What permissions does it need?', a: 'Everything works without the optional grants. They are one adb command each: secure settings for the screensaver, usage access for the full recent-apps list, and location for the Wi-Fi name. The phone setup form is served only on your local network, on a one-time link.' },
-  { q: 'Is it smooth on low-end hardware?', a: 'It is built for that. Glass blurs the wallpaper once and reuses it under every glass surface. On a Fire TV Stick 4K it cold starts in about half a second, with under 1% janky frames while you browse.' },
+  { q: 'Does it replace Fire\u2019s home screen?', a: 'Once you set it as home. Fire OS has no default picker, so Glass either brings itself back over Amazon\u2019s home or one adb command disables Amazon\u2019s launcher. Your apps are untouched.' },
+  { q: 'Does it show ads or track me?', a: 'Glass shows no ads and needs no account. The app has no analytics or tracking libraries. It only contacts the services behind its features: your featured shelf source, weather, Aerial videos and GitHub for updates.' },
+  { q: 'What permissions does it need?', a: 'Everything works without the optional grants. They are one adb command each: secure settings for the screensaver, usage access for the full recent-apps list, and location for the Wi-Fi name.' },
+  { q: 'How does it update?', a: 'Inside the app, from GitHub Releases. Android asks before each install.' },
+  { q: 'How do I undo it?', a: 'Turn off Home Button Takeover and uninstall. If you disabled Amazon\u2019s launcher, run adb shell pm enable com.amazon.tv.launcher first.' },
 ];
 
-const dock = media('dock');
-const heroLoop = media('hero-loop');
-// Hero: the real loop when it exists, otherwise the home dock still as its poster.
-const hero = hasVideo(heroLoop) ? { ...heroLoop, poster: heroLoop.poster ?? dock.image } : { ...dock };
-const remote = media('clip-remote-focus');
-const demoFull = media('demo-full');
-const m = {
-  hero, dock, scene: hasVideo(heroLoop) ? heroLoop : remote, featured: media('featured'), remote,
-  fin: hasVideo(heroLoop) ? heroLoop : remote, demo: hasVideo(demoFull) ? demoFull : remote,
-  dockIcons: [1, 2, 3, 4, 5, 6].map((i) => media(`dock-${i}`)),
-  shelf: [1, 2, 3].map((i) => media(`shelf-${i}`)),
-  prev: [['Control Center', 1], ['App switcher', 2], ['Cover Flow', 3], ['Settings', 4]].map(([label, i]) => ({ label: label as string, m: media(`preview-${i}`) })),
-  themes: [1, 2, 3, 4, 5].map((i) => media(`theme-${i}`)),
-};
-const setup = [
-  { title: 'Install it.', lines: ['Download the APK and sideload it with Downloader.', 'Android 9 or newer.'], m: dock, todo: 'install capture', alt: 'The Glass home screen after install' },
-  { title: 'Set it as home.', lines: ['Turn on Home Button Takeover, or run one adb command.', 'Undo it any time with one command.'], m: media('setup-home'), todo: 'set-as-home capture', alt: 'Glass settings, Home Screen section' },
-  { title: 'Make it yours.', lines: ['Rearrange the dock, pick wallpapers and widgets.', 'Type API keys on your phone, not with the remote.'], m: media('setup-customise'), todo: 'customise capture', alt: 'Glass appearance settings' },
-];
+const hero = media('featured');
 ---
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Glass: an Apple TV-style home screen for Fire TV</title>
-    <meta name="description" content="Glass is a free, open-source launcher for Fire TV and Android TV with an Apple TV-style look. Dock, featured titles and spring focus, built for the remote." />
+    <title>Glass: tvOS on your Fire TV</title>
+    <meta name="description" content="tvOS on your Fire TV. Glass is a free, open-source home screen with Top Shelf, Cover Flow and a fast Control Center, built for the remote." />
     <meta name="theme-color" content="#0a0a0b" />
     <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
     <link rel="alternate" type="text/plain" href={`${base}/llms.txt`} title="llms.txt" />
   </head>
   <body>
-    <SmoothScroll client:load />
     <Nav />
     <main>
-      <Hero client:load hero={m.hero} demo={m.demo} install={install} />
+      <section class="hero lean" id="top">
+        <div class="wrap lean-grid">
+          <div class="lean-text">
+            <h1>tvOS on your Fire TV.</h1>
+            <p class="hero-sub">Glass is a free, open-source home screen with Apple TV&rsquo;s look: Top Shelf, Cover Flow and a Control Center that opens in about 200 ms. Sideload it in a minute.</p>
+            <div class="hero-actions"><a class="pill primary" href={install}><span class="chip"><Icon name="DownloadSimple" size={18} /></span>Get Glass</a></div>
+            <p class="fine">Tested on a Fire TV Stick 4K (2nd gen). Free, Apache-2.0.</p>
+          </div>
+          <div class="tv-frame lean-shot">
+            <picture>
+              {hero.avifSet && <source type="image/avif" srcset={hero.avifSet} sizes="(min-width: 900px) 60vw, 100vw" />}
+              <img src={hero.image} srcset={hero.webpSet} sizes="(min-width: 900px) 60vw, 100vw" width="1920" height="1080" alt="The Glass home screen on a Fire TV: a Top Shelf title over a shelf of titles" fetchpriority="high" decoding="async" />
+            </picture>
+          </div>
+        </div>
+      </section>
 
-      <ScaleUp client:load scene={m.scene} />
-
-      <section id="try" class="sec try">
+      <section id="try" class="sec">
         <div class="wrap">
-          <h2>Pick up the remote.</h2>
-          <p class="sub">Arrow keys move focus. Enter opens. Escape leaves.</p>
-          <TryIt client:visible dock={m.dockIcons} shelf={m.shelf} previews={m.prev} />
+          <h2>The look, the speed.</h2>
+          <p class="sub">Focus lift, tilt and panel timings follow tvOS, tuned so a Fire TV Stick keeps up. Measured on a Fire TV Stick 4K (2nd gen): under 1% janky frames.</p>
+          <ul class="stills">
+            {stills.map((x) => (
+              <li>
+                <img srcset={x.m.webpSet} sizes="(min-width: 900px) 33vw, 100vw" src={x.m.image} width="1920" height="1080" alt={x.t} loading="lazy" decoding="async" />
+                <h3>{x.t}</h3><p>{x.d}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
       <section id="features" class="sec">
         <div class="wrap">
-          <h2>Everything the home screen needs.</h2>
-          <Bento client:visible dock={m.dock} featured={m.featured} themes={m.themes} remote={m.remote} />
-        </div>
-      </section>
-
-      <section class="sec apps">
-        <div class="wrap"><h2>Your apps, all here.</h2></div>
-        <div class="marquee" aria-label="Apps you can open from Glass">
-          <ul class="track">
-            {[0, 1].map((k) => brands.map((b) => (
-              <li aria-hidden={k === 1 ? 'true' : undefined}><svg viewBox="0 0 24 24" role="img" aria-label={k === 0 ? b.title : undefined}><path d={b.path} fill="currentColor" /></svg></li>
-            )))}
+          <h2>More than a skin.</h2>
+          <ul class="fix-list">
+            {more.map((f) => (
+              <li><div><h3>{f.t}</h3><p>{f.d}</p></div><span class="tag">{f.tag}</span></li>
+            ))}
           </ul>
         </div>
-        <p class="wrap fine">Glass opens any app installed on your stick. Logos belong to their owners.</p>
-      </section>
-
-      <section class="sec setup">
-        <div class="wrap"><h2>Set up in a minute.</h2></div>
-        <Setup client:load panels={setup} />
       </section>
 
       <section id="ways" class="sec">
         <div class="wrap">
-          <h2>Four ways to install.</h2>
-          <p class="sub">One app. Start with the first.</p>
-          <ul class="ways">
+          <h2>Three ways to get Glass.</h2>
+          <p class="sub">Start with the APK.</p>
+          <ul class="more">
             {ways.map((w, i) => (
-              <li class={i === 0 ? 'way default' : 'way'}>
-                <a href={w.href}>
-                  <div class="way-head"><h3>{w.name}</h3><span class={`tag ${i === 0 ? 'rec' : ''}`}>{w.status}</span></div>
-                  <dl>
-                    <div><dt>For</dt><dd>{w.who}</dd></div>
-                    <div><dt>You need</dt><dd>{w.need}</dd></div>
-                    <div><dt>You get</dt><dd>{w.get}</dd></div>
-                  </dl>
-                  <span class="way-go">Read the guide <Icon name="ArrowRight" size={16} /></span>
-                </a>
-              </li>
+              <li><a href={w.href}><span class="more-name">{w.name}</span><span class="more-note">{w.note}</span><span class={`tag ${i === 0 ? 'rec' : ''}`}>{w.status}</span></a></li>
             ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="sec know">
+        <div class="wrap">
+          <h2>What to know first.</h2>
+          <ul class="upfront">
+            <li><strong>Tested on one stick.</strong>The Fire TV Stick 4K (2nd gen). Others should work. <a href={`${repo}/issues/new?template=device_report.yml`}>Tell us how it runs</a>.</li>
+            <li><strong>Some extras need root.</strong>Hold-Home pairing, remote buttons and Control Center over apps are part of Glass Pro.</li>
+            <li><strong>Independent.</strong>Not affiliated with Apple, Amazon or Google.</li>
           </ul>
         </div>
       </section>
@@ -136,25 +123,16 @@ const setup = [
       <section id="faq" class="sec">
         <div class="wrap narrow">
           <h2>Questions.</h2>
-          <Faq client:visible items={faq} />
+          <div class="qa">
+            {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+          </div>
         </div>
       </section>
 
       <section class="sec final">
-        <div class="wrap final-grid">
-          <div class="final-copy">
-            <h2 class="giant">Make your TV<br />feel new.</h2>
-            <div class="final-actions">
-              <a class="pill primary" href={install}><span class="chip"><Icon name="DownloadSimple" size={18} /></span>Get Glass</a>
-            </div>
-          </div>
-          <div class="final-side">
-            <div class="tv-frame small"><Slot client:visible media={m.fin} alt="Glass home screen loop" todo="final loop" w={1920} h={1080} format="webm+mp4" /></div>
-            <div class="qr">
-              <div class="qr-img" role="img" aria-label="QR code linking to the Glass install page" set:html={qr} />
-              <p>Scan to open the install page on your phone.</p>
-            </div>
-          </div>
+        <div class="wrap">
+          <h2 class="giant">tvOS on your<br />Fire TV.</h2>
+          <div class="final-actions"><a class="pill primary" href={install}><span class="chip"><Icon name="DownloadSimple" size={18} /></span>Get Glass</a></div>
         </div>
       </section>
     </main>
@@ -172,11 +150,5 @@ const setup = [
       </div>
     </footer>
 
-    <script is:inline>
-      // Primary pill: the hover fill enters from the side the pointer came from.
-      document.querySelectorAll('.pill').forEach((el) => el.addEventListener('pointerenter', (e) => {
-        const r = el.getBoundingClientRect(); el.style.setProperty('--ox', ((e.clientX - r.left) / r.width * 100) + '%');
-      }));
-    </script>
   </body>
 </html>

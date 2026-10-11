@@ -24,18 +24,18 @@ function Tilt({ className, children, delay = 0 }: { className: string; children:
   );
 }
 
-export default function Bento({ dock, featured, themes, remote }: { dock: Media; featured: Media; themes: Media[]; remote: Media }) {
+export default function Bento({ coverFlow, control, switcher, themes }: { coverFlow: Media; control: Media; switcher: Media; themes: Media[] }) {
   const [active, setActive] = useState(2);
   const n = themes.length;
   return (
     <div className="bento">
       <Tilt className="c-dock">
-        <div className="cell-media"><Slot media={dock} alt="The Glass dock with app rows below" todo="dock capture" w={3840} h={2160} /></div>
-        <div className="cell-copy"><h3>A dock for your apps.</h3><p>Up to six apps on a glass shelf, with folders and rows below. Move, hide and rename anything.</p></div>
+        <div className="cell-media"><Slot media={coverFlow} alt="Spotify Cover Flow in the Glass Top Shelf" todo="cover flow capture" w={1920} h={1080} sizes="(min-width: 1024px) 50vw, 100vw" /></div>
+        <div className="cell-copy"><h3>Spotify as Cover Flow.</h3><p>Square covers in the Top Shelf turn into a Cover Flow of your albums and playlists.</p></div>
       </Tilt>
       <Tilt className="c-feat" delay={0.06}>
-        <div className="cell-media tall"><Slot media={featured} alt="Featured titles on poster artwork" todo="featured shelf capture" w={1080} h={1920} /></div>
-        <div className="cell-copy"><h3>Featured titles up top.</h3><p>Pick Stremio, TMDB, YouTube or Plex as the source. Select a title and it opens in the matching app.</p></div>
+        <div className="cell-media tall"><Slot media={control} alt="Glass Control Center over a title" todo="control center capture" w={1920} h={1080} sizes="(min-width: 1024px) 25vw, 100vw" /></div>
+        <div className="cell-copy"><h3>Control Center, your layout.</h3><p>Opens in about 200 ms from the status pill on Home. Add, remove and resize the controls, and add the Remotes panel to see and pair your remote.</p></div>
       </Tilt>
       <Tilt className="c-themes" delay={0.12}>
         <div className="fan" role="group" aria-label="Wallpaper themes">
@@ -43,29 +43,28 @@ export default function Bento({ dock, featured, themes, remote }: { dock: Media;
             const d = i - active;
             return (
               <motion.div key={i} className="fan-item" animate={{ x: `${d * 34}%`, rotate: d * 5, scale: d === 0 ? 1 : 0.86, filter: d === 0 ? 'blur(0px)' : 'blur(3px)', opacity: Math.abs(d) > 2 ? 0 : d === 0 ? 1 : 0.7, zIndex: 10 - Math.abs(d) }} transition={{ type: 'spring', stiffness: 100, damping: 20 }}>
-                <Slot media={m} alt={`Wallpaper ${i + 1}`} todo="wallpaper" w={1920} h={1080} />
+                <Slot media={m} alt={`Glass theme ${i + 1} of ${n}`} todo="theme" w={1920} h={1080} sizes="30vw" />
               </motion.div>
             );
           })}
         </div>
         <div className="cell-copy row">
-          <div><h3>Wallpapers and themes.</h3><p>Gradients or your own image, with separate light and dark wallpapers.</p></div>
+          <div><h3>Dark and light themes.</h3><p>Aurora, Ember, Abyss, Dawn, Mist and more, or your own image. Light and dark wallpapers are set separately.</p></div>
           <div className="fan-ctl">
-            <button type="button" className="icon-btn" aria-label="Previous wallpaper" onClick={() => setActive((a) => (a + n - 1) % n)}><Icon name="CaretLeft" /></button>
-            <button type="button" className="icon-btn" aria-label="Next wallpaper" onClick={() => setActive((a) => (a + 1) % n)}><Icon name="CaretRight" /></button>
+            <button type="button" className="icon-btn" aria-label="Previous theme" onClick={() => setActive((a) => (a + n - 1) % n)}><Icon name="CaretLeft" /></button>
+            <button type="button" className="icon-btn" aria-label="Next theme" onClick={() => setActive((a) => (a + 1) % n)}><Icon name="CaretRight" /></button>
           </div>
         </div>
       </Tilt>
       <Tilt className="c-fast" delay={0.18}>
         <div className="cell-copy">
-          <p className="fig mono">0.5 s</p>
-          <h3>Fast launch.</h3>
-          <p>Cold start on a Fire TV Stick 4K. Under 1% janky frames while you browse.</p>
+          <h3>Aerial screensaver.</h3>
+          <p>Apple's Aerial videos, cached for offline replay. Fire OS only runs Amazon's screensavers, so Glass starts Aerials itself after a wait.</p>
         </div>
       </Tilt>
       <Tilt className="c-remote" delay={0.24}>
-        <div className="cell-media"><Slot media={remote} alt="Focus moving across the dock with a remote" todo="focus-move loop" w={1920} h={1080} format="webm+mp4" /></div>
-        <div className="cell-copy"><h3>Built for the remote.</h3><p>Focus lifts on a spring and tilts toward the direction you pressed.</p></div>
+        <div className="cell-media"><Slot media={switcher} alt="The Glass app switcher" todo="app switcher capture" w={1920} h={1080} sizes="25vw" /></div>
+        <div className="cell-copy"><h3>App switcher.</h3><p>Recent apps as cards. Press up to close one.</p></div>
       </Tilt>
     </div>
   );
