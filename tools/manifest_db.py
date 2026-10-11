@@ -1,5 +1,9 @@
-import os,re,json,sys,glob,collections
-D=sys.argv[1]
+"""Builds the package manifest DB from an extracted image tree.
+Usage: manifest_db.py <extracted_root> <manifests.json>
+<extracted_root> holds the partition directories (system/, vendor/, product/). Every *.apk below it is read
+with aapt2 (AAPT2 env var, default from tools/env.sh). Each entry's `file` is the APK path relative to
+<extracted_root>. A directory of pre-dumped `<path with / as __>.apk.txt` files is also accepted (legacy)."""
+import os,re,json,sys,glob,subprocess
 rx=re.compile(r'^(\s*)(E|A): (.*)$')
 def parse(p):
     root={'tag':'root','attrs':{},'kids':[]};stack=[(-1,root)]
@@ -20,11 +24,14 @@ def parse(p):
 def walk(n):
     yield n
     for k in n['kids']: yield from walk(k)
-out={}
-for f in sorted(glob.glob(D+'/*.txt')):
-    r=parse(f);man=next((n for n in walk(r) if n['tag']=='manifest'),None)
-    if not man: continue
-    pkg=man['attrs'].get('package');e={'file':os.path.basename(f)[:-4].replace('__','/'),'sharedUserId':man['attrs'].get('sharedUserId'),
+def dump_text(apk):
+    aapt2=os.environ.get('AAPT2') or os.path.expanduser('~/Library/Android/sdk/build-tools/36.0.0/aapt2')
+    r=subprocess.run([aapt2,'dump','xmltree','--file','AndroidManifest.xml',apk],capture_output=True,text=True)
+    return r.stdout if r.returncode==0 else None
+def parse_text(text,tmp):
+    open(tmp,'w').write(text); return parse(tmp)
+def entry(man,file):
+    e={'file':file,'sharedUserId':man['attrs'].get('sharedUserId'),
      'uses_perm':[],'decl_perm':{},'uses_lib':[],'uses_feature':[],'components':[],'authorities':[],'actions':set(),'home':False,'persistent':False,'targets':set()}
     for n in walk(man):
         a=n['attrs'];t=n['tag']
@@ -43,6 +50,24 @@ for f in sorted(glob.glob(D+'/*.txt')):
             for v in a.values():
                 if isinstance(v,str) and re.match(r'^com\.amazon\.[\w.]+$',v): e['targets'].add(v)
     e['actions']=sorted(x for x in e['actions'] if x);e['targets']=sorted(e['targets'])
-    out.setdefault(pkg,[]).append(e)
-json.dump(out,open(sys.argv[2],'w'),indent=1,default=list)
-print(len(out))
+    return e
+def main(apk_root,out_json):
+    import tempfile
+    out={}
+    with tempfile.TemporaryDirectory() as td:
+        tmp=os.path.join(td,'m.txt')
+        if glob.glob(apk_root+'/*.txt'):   # legacy: pre-dumped text files
+            items=[(os.path.basename(f)[:-4].replace('__','/'),open(f,errors='ignore').read()) for f in sorted(glob.glob(apk_root+'/*.txt'))]
+        else:
+            apks=sorted(os.path.join(d,f) for d,_,fs in os.walk(apk_root) for f in fs if f.endswith('.apk'))
+            items=[(os.path.relpath(a,apk_root),dump_text(a)) for a in apks]
+        for file,text in items:
+            if not text: continue
+            r=parse_text(text,tmp);man=next((n for n in walk(r) if n['tag']=='manifest'),None)
+            if not man: continue
+            out.setdefault(man['attrs'].get('package'),[]).append(entry(man,file))
+    json.dump(out,open(out_json,'w'),indent=1,default=list)
+    return len(out)
+if __name__=='__main__':
+    if len(sys.argv)!=3: sys.exit(__doc__)
+    print(main(sys.argv[1],sys.argv[2]))

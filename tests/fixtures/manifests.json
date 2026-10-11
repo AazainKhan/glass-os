@@ -1,0 +1,150 @@
+{
+ "com.example.core": [
+  {
+   "file": "system/system/priv-app/Core/Core.apk",
+   "sharedUserId": null,
+   "uses_perm": [],
+   "decl_perm": {},
+   "uses_lib": [
+    [
+     "com.example.reqlib",
+     "true"
+    ],
+    [
+     "com.example.optlib",
+     "0x0"
+    ]
+   ],
+   "uses_feature": [],
+   "components": [
+    [
+     "service",
+     "com.example.core.Svc",
+     "exp",
+     "com.example.perm.GUARD"
+    ]
+   ],
+   "authorities": [],
+   "actions": [],
+   "home": true,
+   "persistent": false,
+   "targets": []
+  }
+ ],
+ "com.example.libowner": [
+  {
+   "file": "system/system/system_ext/priv-app/LibOwner/LibOwner.apk",
+   "sharedUserId": null,
+   "uses_perm": [],
+   "decl_perm": {
+    "com.example.perm.GUARD": "signature"
+   },
+   "uses_lib": [],
+   "uses_feature": [],
+   "components": [],
+   "authorities": [],
+   "actions": [],
+   "home": false,
+   "persistent": false,
+   "targets": []
+  }
+ ],
+ "com.example.optowner": [
+  {
+   "file": "system/system/system_ext/priv-app/OptOwner/OptOwner.apk",
+   "sharedUserId": null,
+   "uses_perm": [],
+   "decl_perm": {},
+   "uses_lib": [],
+   "uses_feature": [],
+   "components": [],
+   "authorities": [],
+   "actions": [],
+   "home": false,
+   "persistent": false,
+   "targets": []
+  }
+ ],
+ "com.example.caller": [
+  {
+   "file": "system/system/app/Caller/Caller.apk",
+   "sharedUserId": null,
+   "uses_perm": [
+    "com.example.perm.GUARD"
+   ],
+   "decl_perm": {},
+   "uses_lib": [],
+   "uses_feature": [],
+   "components": [],
+   "authorities": [],
+   "actions": [],
+   "home": false,
+   "persistent": false,
+   "targets": []
+  }
+ ],
+ "com.example.tutorial": [
+  {
+   "file": "system/system/app/Tutorial/Tutorial.apk",
+   "sharedUserId": null,
+   "uses_perm": [],
+   "decl_perm": {},
+   "uses_lib": [],
+   "uses_feature": [],
+   "components": [],
+   "authorities": [],
+   "actions": [],
+   "home": false,
+   "persistent": false,
+   "targets": []
+  }
+ ],
+ "com.example.promo": [
+  {
+   "file": "system/system/app/Promo/Promo.apk",
+   "sharedUserId": null,
+   "uses_perm": [],
+   "decl_perm": {},
+   "uses_lib": [],
+   "uses_feature": [],
+   "components": [],
+   "authorities": [],
+   "actions": [],
+   "home": false,
+   "persistent": false,
+   "targets": []
+  }
+ ],
+ "com.example.vendorapp": [
+  {
+   "file": "vendor/app/VendorApp/VendorApp.apk",
+   "sharedUserId": null,
+   "uses_perm": [],
+   "decl_perm": {},
+   "uses_lib": [],
+   "uses_feature": [],
+   "components": [],
+   "authorities": [],
+   "actions": [],
+   "home": false,
+   "persistent": false,
+   "targets": []
+  }
+ ],
+ "com.example.productapp": [
+  {
+   "file": "product/app/ProductApp/ProductApp.apk",
+   "sharedUserId": null,
+   "uses_perm": [],
+   "decl_perm": {},
+   "uses_lib": [],
+   "uses_feature": [],
+   "components": [],
+   "authorities": [],
+   "actions": [],
+   "home": false,
+   "persistent": false,
+   "targets": []
+  }
+ ]
+}

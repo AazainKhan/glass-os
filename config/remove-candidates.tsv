@@ -1,6 +1,6 @@
 # package	batch	reason
-com.amazon.tmm.tutorial	1	Tutorial app, no reverse deps, no declared perms in use
-com.amazon.storm.lightning.tutorial	1	Tutorial; only depends on launcher/turnstile perms; no reverse deps
+com.amazon.tmm.tutorial	1a	Tutorial app, no reverse deps, no declared perms in use
+com.amazon.storm.lightning.tutorial	1b	Tutorial; only depends on launcher/turnstile perms; no reverse deps
 com.amazon.firetv.troubleshooting	2	Stub; disabled since 2026-10-08 (DEBLOAT-LOG) with no fallout
 com.amazon.ftvads.deeplinking	2	Ads deep-linking; disabled since 2026-10-07 with no fallout; no reverse deps
 com.amazon.device.metrics	2	Metrics; disabled since 2026-10-07; no reverse deps

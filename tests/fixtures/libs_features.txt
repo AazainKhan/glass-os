@@ -1,0 +1,4 @@
+<feature name="example.hardware.tv"
+<library name="com.example.reqlib" file="/system_ext/priv-app/LibOwner/LibOwner.apk"
+<library name="com.example.optlib" file="/system/system_ext/priv-app/OptOwner/OptOwner.apk"
+<library name="com.example.framework" file="/system/framework/example.jar"
