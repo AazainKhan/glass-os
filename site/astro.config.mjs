@@ -11,6 +11,9 @@ export default defineConfig({
       title: 'Glass',
       description:
         'An open-source, Apple TV-style home screen for Fire TV and Android TV, with install paths from a plain APK up to a custom Fire OS image.',
+      customCss: ['./src/styles/docs.css'],
+      components: { Header: './src/components/Header.astro' },
+      social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/AazainKhan/glass-tv-launcher' }],
       plugins: [
         starlightLlmsTxt({
           projectName: 'Glass',
@@ -34,7 +37,7 @@ export default defineConfig({
         }),
       ],
       sidebar: [
-        { label: 'Start', items: ['no-root'] },
+        { label: 'Start', items: ['overview', 'no-root'] },
         {
           label: 'Install',
           items: [
