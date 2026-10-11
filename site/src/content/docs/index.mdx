@@ -1,0 +1,65 @@
+---
+title: Glass
+description: An open-source, Apple TV-style home screen for Fire TV and Android TV. Start with a plain APK, go deeper only if you want to.
+template: splash
+hero:
+  tagline: A calm, glassy home screen for Fire TV and Android TV. Open source, built to stay smooth on a cheap stick.
+  actions:
+    - text: Pick your install tier
+      link: /glass-os/install/
+      icon: right-arrow
+    - text: What works without root
+      link: /glass-os/no-root/
+      variant: minimal
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+export const heroShots = import.meta.glob('../../assets/hero.png', { eager: true, import: 'default' });
+export const hero = Object.values(heroShots)[0];
+
+{hero ? (
+  <Image src={hero} alt="Glass home screen on a Fire TV: a top row of app tiles over frosted glass, with a featured shelf below." widths={[800, 1600]} sizes="(min-width: 50rem) 50rem, 100vw" />
+) : (
+  <div role="img" aria-label="Glass home screen on a Fire TV: a top row of app tiles over frosted glass, with a featured shelf below." style="aspect-ratio:16/9;border:1px dashed var(--sl-color-gray-3);border-radius:1rem;display:grid;place-items:center;text-align:center;padding:1rem;color:var(--sl-color-gray-3)">Screenshot coming soon: Glass home screen on a Fire TV</div>
+)}
+
+## What Glass is
+
+Glass is a launcher: the screen you see when you press Home. It takes its look and motion from Apple TV (frosted glass panels, soft focus lift, a top row of apps, folders, a featured shelf, Aerial screensaver videos) and runs on Android TV, Google TV and Fire TV. It is *Apple TV-style*, not a copy, and it is not affiliated with Apple, Amazon or Google.
+
+It is written for weak hardware first. The reference device is a Fire TV Stick 4K (2nd gen), and the project measures frame times on it before it ships a visual change.
+
+## What we are honest about
+
+- **Tested on one device.** The Fire TV Stick 4K 2nd gen is the only hardware Glass has been checked on. Other Fire TV, Android TV and Google TV devices should work, but nobody has verified that yet.
+- **A launcher cannot be everything on Fire OS.** Fire's key policy keeps the Home button for itself, so without root Glass takes over by bouncing Amazon's launcher out of the way, not by intercepting the button. The [no-root page](/glass-os/no-root/) says exactly what you get and what you do not.
+- **The deeper tiers are only for people who want them.** Glass Pro and Glass OS are for tinkerers with a rooted or unlocked stick. They are not built or released yet, and the pages say so.
+
+## Pick your tier
+
+<CardGrid>
+  <Card title="Tier 0: APK only" icon="rocket">
+    Sideload Glass, switch on one accessibility toggle. No computer, nothing to undo but an uninstall.
+    [Guide](/glass-os/install/tier-0-apk/)
+  </Card>
+  <Card title="Tier 1: APK + one adb command" icon="laptop">
+    The reliable no-root setup: Glass becomes the real home screen. Optional adb grants unlock a few more things.
+    [Guide](/glass-os/install/tier-1-adb/)
+  </Card>
+  <Card title="Tier 2: Glass Pro" icon="setting">
+    A Magisk module for rooted sticks: remote buttons, memory tuning, Glass as a system app. Coming soon.
+    [Guide](/glass-os/install/tier-2-glass-pro/)
+  </Card>
+  <Card title="Tier 3: Glass OS" icon="puzzle">
+    A rebuilt system image with Amazon's launcher and bloat removed. In development.
+    [Guide](/glass-os/install/tier-3-glass-os/)
+  </Card>
+</CardGrid>
+
+## Built to be followed by people and by agents
+
+Every install guide has a matching, executable [runbook](/glass-os/agents/runbook/): each step has a command, the output you should see, and what to do if you do not. Point Claude Code (or any agent) at `llms.txt` and it can drive a connected stick with you approving the writes.
+
+<LinkCard title="For agents" description="llms.txt, the runbook, and the safety rules an agent must follow." href="/glass-os/agents/" />
