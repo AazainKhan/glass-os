@@ -4,3 +4,4 @@
 22:54 Task 4 privapp allowlist: pytest 5/5 incl. real Glass release APK; cross-check vs live module is device step D7 (queued)
 22:56 Task 5 bundled apps: bats 7/7, pytest privapp 5/5; Droid-ify 0.7.8 + TV Bro 2.1.6 geckoExcluded pinned (sha=GitHub digest, signer pinned); both extractNativeLibs=false + stored libs
 23:01 Task 6 Glass Pro module: bats 16/16; out/glass-pro.zip = 1a build (sha 985407bc...), out/b8 = batches up to 8 (lint 0 errors); keepalive = slot only; start-launcher.sh reconstructed
+23:02 Task 7 smoke checks: bats 8/8 with fake adb; baseline run on the stick (Step 3) NOT done, queued for device session

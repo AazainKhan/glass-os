@@ -1,0 +1,20 @@
+#!/bin/sh
+# Fake adb for smoke.sh tests: canned outputs from $FAKE_DIR; every call is logged; unknown commands fail loudly.
+echo "$*" >> "$FAKE_DIR/calls.log"
+out() { cat "$FAKE_DIR/$1"; }
+case "$*" in
+  *sys.boot_completed*) out boot_completed ;;
+  *"logcat -b events"*) out events ;;
+  *"resolve-activity"*) out home ;;
+  *"dumpsys wifi"*) out wifi ;;
+  *"dumpsys bluetooth_manager"*) out bluetooth ;;
+  *"dumpsys media.drm"*) out drm ;;
+  *"dumpsys hdmi_control"*) out hdmi ;;
+  *"logcat -b crash"*) out crash ;;
+  *"pm list packages"*) out packages ;;
+  *"ls /data/adb/modules"*) out modules ;;
+  *"build-info.txt"*) out buildinfo ;;
+  *"ps -A"*) out ps ;;
+  *activity_manager_constants*) out constants ;;
+  *) echo "UNEXPECTED: $*" >> "$FAKE_DIR/calls.log"; exit 98 ;;
+esac
