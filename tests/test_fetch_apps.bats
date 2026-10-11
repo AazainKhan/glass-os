@@ -47,7 +47,7 @@ write_tsv() {
   [ -f "$x" ]
   grep -q 'android.permission.INSTALL_PACKAGES' "$x"
   # undeclared (Android 12+) name is dropped, requested declared ones stay
-  ! grep -q UPDATE_PACKAGES_WITHOUT_USER_ACTION "$x"
+  if grep -q UPDATE_PACKAGES_WITHOUT_USER_ACTION "$x"; then return 1; fi
   grep -q 'android.permission.INTERNET' "$x"
 }
 

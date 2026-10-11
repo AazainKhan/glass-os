@@ -71,7 +71,7 @@ customize() {  # $1 = extracted module dir to install from
   [ "$(unzip -p "$ZIP" META-INF/com/google/android/updater-script)" = "#MAGISK" ]
   unzip -p "$ZIP" module.prop | grep -qx 'id=glass-pro'
   # no key layout in the zip (it is generated on the stick), and only the three expected APKs
-  ! grep -q 'keylayout' "$BATS_TEST_TMPDIR/list"
+  if grep -q 'keylayout' "$BATS_TEST_TMPDIR/list"; then return 1; fi
   [ "$(grep -c '\.apk$' "$BATS_TEST_TMPDIR/list")" = 3 ]
   unzip -p "$ZIP" system/etc/permissions/privapp-permissions-dev.glasslauncher.xml | grep -q 'ACCESS_ALL_EPG_DATA'
   unzip -p "$ZIP" system/etc/permissions/privapp-permissions-dev.glasslauncher.xml | grep -q 'WRITE_SECURE_SETTINGS'
@@ -85,8 +85,8 @@ customize() {  # $1 = extracted module dir to install from
 
 @test "companion_has_no_replace_and_no_glass" {
   l="$(unzip -Z1 "$D/out-companion/glass-pro-0.1.0-companion.zip")"
-  ! grep -q '\.replace' <<<"$l"
-  ! grep -qi 'glasslauncher' <<<"$l"
+  if grep -q '\.replace' <<<"$l"; then return 1; fi
+  if grep -qi 'glasslauncher' <<<"$l"; then return 1; fi
   grep -q 'service.sh' <<<"$l"
   grep -q 'Droidify.apk' <<<"$l"
 }
@@ -137,7 +137,7 @@ customize() {  # $1 = extracted module dir to install from
   [ "$status" -eq 0 ]
   kl="$BATS_TEST_TMPDIR/modpath/system/usr/keylayout/Vendor_0171_Product_0427.kl"
   grep -q '^key 744 *BUTTON_9' "$kl"; grep -q '^key 748 *BUTTON_13' "$kl"; grep -q '^key 249 *SETTINGS' "$kl"
-  ! grep -q '^key 18[45] ' "$kl"
+  if grep -q '^key 18[45] ' "$kl"; then return 1; fi
   grep -q '^key 103 *DPAD_UP' "$kl"
   # feeding the already patched file back in gives the same file
   cp "$kl" "$BATS_TEST_TMPDIR/patched.kl"
@@ -172,7 +172,7 @@ customize() {  # $1 = extracted module dir to install from
   [ "$(grep -c 'am start' "$BATS_TEST_TMPDIR/code.sh")" = 1 ]
   grep 'am start' "$BATS_TEST_TMPDIR/code.sh" | grep -q -- '-a android.intent.action.MAIN -c android.intent.category.HOME'
   # no other launcher start anywhere in the module
-  ! grep -rn 'am start' "$D/x-full" --include='*.sh' | grep -v 'service.sh' | grep .
+  if grep -rn 'am start' "$D/x-full" --include='*.sh' | grep -v 'service.sh' | grep .; then return 1; fi
 }
 
 @test "keepalive_slot_is_marked_and_does_not_reimplement" {
@@ -180,7 +180,7 @@ customize() {  # $1 = extracted module dir to install from
   grep -q 'KEEPALIVE SLOT' "$BATS_TEST_TMPDIR/service.sh"
   grep -q 'keepalive/service.sh' "$BATS_TEST_TMPDIR/service.sh"
   grep -q 'backup/glass-remote-keepalive.sh' "$BATS_TEST_TMPDIR/service.sh"
-  ! unzip -Z1 "$ZIP" | grep -q '^keepalive/'
+  if unzip -Z1 "$ZIP" | grep -q '^keepalive/'; then return 1; fi
   unzip -Z1 "$D/out-ka/glass-pro-0.1.0-b1b.zip" | grep -qx 'keepalive/service.sh'
   [ "$(unzip -p "$D/out-ka/glass-pro-0.1.0-b1b.zip" keepalive/service.sh)" = "$(cat "$D/keepalive.sh")" ]
 }
@@ -205,5 +205,5 @@ customize() {  # $1 = extracted module dir to install from
 
 @test "zip_has_no_local_paths_or_device_serials" {
   rm -rf "$BATS_TEST_TMPDIR/all"; mkdir "$BATS_TEST_TMPDIR/all"; unzip -q "$ZIP" -d "$BATS_TEST_TMPDIR/all"
-  ! grep -rIl -e '/Users/' -e 'G072''JM' "$BATS_TEST_TMPDIR/all" | grep .
+  if grep -rIl -e '/Users''/' -e 'G072''JM' "$BATS_TEST_TMPDIR/all" | grep .; then return 1; fi
 }
