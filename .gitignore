@@ -1,0 +1,10 @@
+input/
+work/
+out/
+backup/
+tools/bin/
+*.img
+*.bin
+*.apk
+*.zip
+.DS_Store
