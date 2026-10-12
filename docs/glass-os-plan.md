@@ -348,6 +348,17 @@ Implement `rom/docs/docs-site-plan.md` (its own task list). Tier pages link Glas
 
 D1 boot state + cmdline · D2 by-name/mapper layout, super size, lpdump · D3 current boot sha and Magisk KEEPVERITY · D4 dm-verity tables · D5 recovery = TWRP? install-recovery active? · D6 lk/lk_real hashes · D7 Glass install location, signature, current allowlist · D8 disabled/system package lists, HOME resolution · D9 SELinux, privapp enforce · D10 TWRP mapper + tools · D11 device access (software first) · D12 `/data/app` shadows of REMOVE packages · D13 copy of the current Glass Magisk setup.
 
+## What the decompile unlocks (2026-10-11)
+
+The tvOS 26.6 and Fire OS 8.1.8.2 decompiles turn "tvOS as an OS" from a slogan into a map: `docs/glass-os-tvos-map.md` has 17 system surfaces, each with a Glass equivalent, a status and the Fire packages involved.
+
+- **Scope is bigger than the launcher, and mostly doable in Glass Pro.** Of 17 surfaces: 4 already in Glass, 8 need building, 2 replace a Fire app (Photos stub, notification centre), 3 are not feasible as replacements (voice, account, system alerts). Nearly all of the 10 build/replace items need only privileged-app powers, so they ship as Pro features before any image work (map section 7).
+- **Image-only work is small:** surviving a data wipe and OOBE without Magisk, a one-flash distributable, and optional edits to platform-signed apps.
+- **The wall is the platform signature.** SystemUI, `settings.core` and `cast.sink` run under Amazon system uids. Glass can restyle them only with static resource overlays; this build already ships such overlays for the framework, SystemUI and one Amazon app, but coverage for the rest is unverified. A short overlay spike decides how far "whole system" goes (map sections 3 and 8).
+- **Motion data has a limit.** `animations.tsv` holds baked system glyph and HUD animations (62 families share one calm spring; Sleep Timer, Volume and Now Playing glyphs have their own). Focus, scroll and launch motion is compiled code and is not in it, so Glass keeps its frame-measured shell values (map section 5).
+- **New Fire-side finding (F1):** Alexa video-search results open activities inside the Amazon launcher, which Glass disables. Check this before claiming Alexa parity.
+- Clean-room: class names are evidence only; several current Glass UI names are Apple product names and need a decision (map section 6).
+
 ## Manager review (2026-10-10)
 
 The plan is sound: writes are limited to system/vendor/product (and boot via Magisk only), a tested backup and restore comes before any write, removals start with a single package, and the build script is deterministic and ships no Amazon files. Changes to make before execution:
