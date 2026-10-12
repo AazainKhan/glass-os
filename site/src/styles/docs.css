@@ -60,3 +60,15 @@ html { scrollbar-color: oklch(1 0 0 / .25) transparent; }
 }
 .pagination-links a { border-radius: 28px; }
 kbd.slash { margin-inline-end: .25rem; }
+
+/* responsive pass: no horizontal page scroll, 16px gutter, scrollable wide blocks */
+html, body { overflow-x: clip; }
+.sl-markdown-content { min-width: 0; overflow-wrap: break-word; }
+.sl-markdown-content table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.sl-markdown-content pre, .expressive-code { max-width: 100%; }
+.sl-markdown-content img, .sl-markdown-content video { max-width: 100%; height: auto; }
+.sl-markdown-content :not(pre) > code { overflow-wrap: anywhere; }
+@media (max-width: 640px) {
+  :root { --sl-content-pad-x: 1rem; --sl-nav-pad-x: 1rem; }
+  .docs-head .tools { gap: .5rem; }
+}
