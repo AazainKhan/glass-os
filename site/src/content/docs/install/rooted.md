@@ -61,7 +61,7 @@ The [agent runbook](/glass-os/agents/runbook/#rooted-install-root-only) has the 
 ## Revert
 
 - One module: run its `uninstall` command, then restart. The module is removed at the next boot.
-- `glass-system`: remove the module in the Magisk app (or `adb shell su -c "touch /data/adb/modules/glass-system/remove"`), then restart.
+- `glass-system`: remove the module in the Magisk app (or `adb shell su -c "touch /data/adb/modules/glass-system/remove"`), then restart. *Untested: this revert has not been run on a stick yet.*
 - Bootloop: from a computer, `adb wait-for-device shell magisk --remove-modules`. If adb never comes up, delete the module directories from a custom recovery. The stick has no volume keys, so Magisk's safe-mode key combo is unreliable.
 - If Glass was your only home screen and it is gone, `adb shell pm enable com.amazon.tv.launcher` brings Amazon's launcher back.
 

@@ -168,6 +168,8 @@ If it fails: stop.
 
 ### R3. Install the Glass Pro modules (Root only)
 
+**Untested:** these steps have not been run end to end on a stick yet; stop and report at the first unexpected output.
+
 **Ask user** to approve the install and each reboot. Run from the root of the Glass source repository.
 
 ```bash title="Terminal: adb"
