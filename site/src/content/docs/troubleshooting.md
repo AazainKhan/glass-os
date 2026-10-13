@@ -18,7 +18,7 @@ Fixes marked **Root** need a rooted stick.
 ## The remote will not pair, or unpairs after a reboot
 
 **Pairing from scratch.** Reboot the stick and wait about 60 seconds for Fire's auto-pair dialog, then **hold the Home button for 10 seconds** on the remote.
-**Cause of unpairing (Root).** Fire's auto-pair service re-pairs about 60 seconds after boot, which can drop a sleeping remote's bond. The rooted install will include a small keepalive that cancels this; until then, a boot script that sends one key event 15 seconds after boot does the same.
+**Cause of unpairing (Root).** Fire's auto-pair service re-pairs about 60 seconds after boot, which can drop a sleeping remote's bond. Glass Pro includes a keepalive module that cancels this: `scripts/remote-keepalive install` from the [Glass source repo](/glass-os/install/rooted/).
 
 ## Alexa crashes whenever you hold the mic button
 
@@ -27,7 +27,7 @@ Fixes marked **Root** need a rooted stick.
 
 ## Two copies of Glass start
 
-**Cause.** The launcher was started with `am start -n`. Start it through the Home intent instead (the rooted install will do this).
+**Cause.** The launcher was started with `am start -n`. Start it through the Home intent instead (Glass Pro does this).
 
 ## The stick bootloops after installing a Magisk module (Root)
 
@@ -36,7 +36,7 @@ Fixes marked **Root** need a rooted stick.
 ## Control Center does not open over apps, or the app buttons do nothing
 
 **Cause.** The remote's Settings, Recents and app buttons never reach third-party apps on stock Fire OS.
-**Fix (Root).** The key remap in the rooted install, coming soon. See [What works without root](/glass-os/no-root/).
+**Fix (Root).** The `glass-remote-keys` module in [Glass Pro](/glass-os/install/rooted/) (`scripts/remote-keys install`). See [What works without root](/glass-os/no-root/).
 
 ## A privileged app stops the stick booting (rooted and full system installs)
 

@@ -8,7 +8,7 @@ Glass is open source (Apache-2.0) and contributions are welcome. You do not need
 ## Repositories
 
 - **Glass launcher:** [glass-tv-launcher](https://github.com/AazainKhan/glass-tv-launcher). Kotlin and Jetpack Compose for TV, one `app` module. Read its `CONTRIBUTING.md` for the build setup (JDK 17 or 21), UI testing and the GPU performance rules.
-- **The rooted and full system installs, and this site:** coming soon as a separate public repository.
+- **Glass Pro (rooted install):** its scripts and Magisk modules live in the Glass launcher repository above (`scripts/`, `tools/magisk/`). The one-zip release and the full system install, and this site, are coming soon as a separate public repository.
 
 ## Good first contributions
 

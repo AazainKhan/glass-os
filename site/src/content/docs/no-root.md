@@ -31,7 +31,7 @@ Opened from the status pill on Glass's home screen it works without any permissi
 
 ## Remote buttons
 
-Fire OS handles the four app buttons, Recents and Settings inside the system, so no app sees them. Remapping them needs a root Magisk module (part of the [rooted install](/glass-os/install/rooted/), coming soon). Unrooted, the accessibility service can still give you "hold Back for 1.5 s to go Home" and app-switcher preview screenshots.
+Fire OS handles the four app buttons, Recents and Settings inside the system, so no app sees them. Remapping them needs a root Magisk module (`glass-remote-keys`, part of [Glass Pro](/glass-os/install/rooted/), which works today from source). Unrooted, the accessibility service can still give you "hold Back for 1.5 s to go Home" and app-switcher preview screenshots.
 
 ## Closing apps
 

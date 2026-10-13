@@ -136,8 +136,8 @@ If it fails: `adb shell pm revoke dev.glasslauncher android.permission.WRITE_SEC
 
 ## Rooted install (root only)
 
-:::note[Coming soon]
-The Magisk module does not exist yet. R1 and R2 check readiness and can run today. Do not run R3 until a release is announced.
+:::caution[Advanced, from source]
+Glass Pro is installed from the Glass source repository (a clone, with JDK 21, run from its root). There is no single zip or release yet (coming soon), and it has only run on the maintainer's stick.
 :::
 
 ### R1. Root works (Root only)
@@ -166,19 +166,34 @@ a non-empty version string, for example 30.7:MAGISKSU
 
 If it fails: stop.
 
-### R3. Install the module (Root only, coming soon)
+### R3. Install the Glass Pro modules (Root only)
 
-**Ask user** to approve the install and a reboot. Command: coming soon.
+**Ask user** to approve the install and each reboot. Run from the root of the Glass source repository.
+
+```bash title="Terminal: adb"
+scripts/build
+scripts/remote-keys install
+scripts/remote-keepalive install
+scripts/tuning install --reboot
+adb wait-for-device
+```
+
+Verify after the stick has booted:
 
 ```bash title="Terminal: adb"
 adb shell su -c "ls /data/adb/modules"
+scripts/remote-keys status
+scripts/remote-keepalive status
+scripts/tuning status
 ```
 
 ```text title="Expected output"
-contains the Glass module directory
+modules contains: glass-system glass-remote-keys glass-remote-keepalive glass-tuning
+keepalive status: module: installed
+tuning status: module installed
 ```
 
-If it fails: `adb wait-for-device shell su -c "magisk --remove-modules"`, then stop. If adb never returns, **Ask user**: a custom recovery is needed.
+If it fails: `adb wait-for-device shell su -c "magisk --remove-modules"`, then stop. If adb never returns, **Ask user**: a custom recovery is needed. To remove one module, run its `uninstall` command and restart.
 
 ## Full system install
 

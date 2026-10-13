@@ -12,7 +12,7 @@ const repo = 'https://github.com/AazainKhan/glass-tv-launcher';
 
 const ways = [
   { name: 'APK', note: 'Sideload the app. No root. On Fire TV, one adb command makes it the real home screen.', status: 'Available', href: `${base}/install/app/` },
-  { name: 'Glass Pro (rooted)', note: 'One Magisk zip: Glass as a system app, hold-Home pairing, remote buttons, Control Center over apps.', status: 'Coming soon', href: `${base}/install/rooted/` },
+  { name: 'Glass Pro (rooted)', note: 'Magisk modules: Glass as a system app, hold-Home pairing, remote buttons, Control Center over apps. Works today from source; one-zip release coming soon.', status: 'Works today (advanced)', href: `${base}/install/rooted/` },
   { name: 'Glass OS', note: 'A rebuilt Fire OS with Glass built in.', status: 'In development', href: `${base}/install/full-system/` },
 ];
 
@@ -114,7 +114,7 @@ const hero = media('featured');
           <h2>What to know first.</h2>
           <ul class="upfront">
             <li><strong>Tested on one stick.</strong>The Fire TV Stick 4K (2nd gen). Others should work. <a href={`${repo}/issues/new?template=device_report.yml`}>Tell us how it runs</a>.</li>
-            <li><strong>Some extras need root.</strong>Hold-Home pairing, remote buttons and Control Center over apps are part of Glass Pro.</li>
+            <li><strong>Some extras need root.</strong>Hold-Home pairing, remote buttons and Control Center over apps are part of Glass Pro. It works today from source on one stick; the one-zip release is coming soon.</li>
             <li><strong>Independent.</strong>Not affiliated with Apple, Amazon or Google.</li>
           </ul>
         </div>
