@@ -28,6 +28,13 @@ adb shell pm disable-user --user 0 com.amazon.tv.launcher
 
 Press Home. You should land in Glass with no Amazon flash.
 
+**Optional: play other apps' audio on a Sonos speaker without a prompt each time.** Glass asks for screen-capture consent every time it starts playing on a speaker. These two commands let it skip that prompt. Apps that block capture (Netflix, Spotify and other protected apps) stay blocked either way.
+
+```bash title="Terminal: adb"
+adb shell appops set dev.glasslauncher PROJECT_MEDIA allow
+adb shell pm grant dev.glasslauncher android.permission.RECORD_AUDIO
+```
+
 **Undo:**
 
 ```bash title="Terminal: adb"
